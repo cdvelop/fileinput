@@ -100,10 +100,13 @@ func New(m *model.Module, db model.DataBaseAdapter, id model.IdHandler, conf ...
 
 	f.FileConfig.MaximumFileSize = int64(float64(f.FileConfig.MaximumFilesAllowed*f.FileConfig.MaximumKbSize*1024) * 1.05)
 
-	// err = db.CreateTablesInDB([]*model.Object{&o}, nil)
-	// if err != nil {
-	// 	return nil, err
-	// }
+	if !f.db.RunOnClientDB() { // verificamos la base de datos solo si estamos en el servidor
+
+		err = db.CreateTablesInDB([]*model.Object{f.Object}, nil)
+		if err != nil {
+			return nil, err
+		}
+	}
 
 	//nota: al no declarar punteros se pierden posteriormente
 

@@ -3,7 +3,7 @@ package fileinput
 func (f File) RegisterNewFile(header_name, upload_folder, file_name, extension string, form_data map[string]string) (map[string]string, error) {
 
 	form_data[f.Id_file] = file_name
-	form_data[f.File_path] = upload_folder + "/" + file_name
+	form_data[f.File_path] = upload_folder + "/" + file_name + extension
 
 	// cortar el nombre del archivo para eliminar la extensión antes de almacenarlo
 	if len(header_name) > 5 {
@@ -24,9 +24,8 @@ func (f File) RegisterNewFile(header_name, upload_folder, file_name, extension s
 	}, nil
 }
 
-func (f File) FileName(extension string) string {
-	file_name := f.idh.GetNewID()
-	return file_name + extension
+func (f File) FileName() string {
+	return f.idh.GetNewID()
 }
 
 func (f File) UploadFolderPath(form_data map[string]string) string {
