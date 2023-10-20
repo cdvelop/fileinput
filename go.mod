@@ -12,7 +12,7 @@ require (
 
 require (
 	github.com/cdvelop/input v0.0.39
-	github.com/cdvelop/model v0.0.57
+	github.com/cdvelop/model v0.0.58
 	github.com/cdvelop/object v0.0.15
 	github.com/cdvelop/unixid v0.0.7
 	golang.org/x/text v0.13.0 // indirect

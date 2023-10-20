@@ -18,7 +18,6 @@ type File struct {
 
 	Object *model.Object
 	db     model.DataBaseAdapter
-	idh    model.IdHandler
 
 	filetype    string //imagen, video, document
 	root_folder string //ej: "./app_files"

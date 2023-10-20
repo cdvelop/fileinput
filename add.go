@@ -17,7 +17,7 @@ import (
 // root_folder:static_files default "app_files"
 // max_files:1, 4, 6.. default 6
 // max_kb_size:100, 400 default 50
-func New(m *model.Module, db model.DataBaseAdapter, id model.IdHandler, conf ...string) (*File, error) {
+func New(m *model.Module, db model.DataBaseAdapter, conf ...string) (*File, error) {
 
 	err := m.AddInputs([]*model.Input{unixid.InputPK(), input.TextNumCode(), input.TextNum(), input.FilePath(), input.Text()}, "file pkg")
 	if err != nil {
@@ -25,6 +25,10 @@ func New(m *model.Module, db model.DataBaseAdapter, id model.IdHandler, conf ...
 	}
 
 	f := File{}
+
+	input := f.Input()
+
+	m.AddInputs([]*model.Input{input}, "file input")
 
 	// crear objeto
 	err = object.New(&f, m)
@@ -41,7 +45,6 @@ func New(m *model.Module, db model.DataBaseAdapter, id model.IdHandler, conf ...
 	}
 
 	f.db = db
-	f.idh = id
 	f.filetype = "imagen"
 	f.root_folder = "app_files"
 
@@ -93,7 +96,7 @@ func New(m *model.Module, db model.DataBaseAdapter, id model.IdHandler, conf ...
 	}
 
 	if field_name == "" {
-		return nil, model.Error(`error field_name:"nombre_campo" no ingresado`)
+		return nil, model.Error(`fileinput error field_name:"nombre_campo" no ingresado`)
 	}
 
 	f.Object.Name += "." + field_name
@@ -101,8 +104,8 @@ func New(m *model.Module, db model.DataBaseAdapter, id model.IdHandler, conf ...
 	f.FileConfig.MaximumFileSize = int64(float64(f.FileConfig.MaximumFilesAllowed*f.FileConfig.MaximumKbSize*1024) * 1.05)
 
 	if !f.db.RunOnClientDB() { // verificamos la base de datos solo si estamos en el servidor
-
 		err = db.CreateTablesInDB([]*model.Object{f.Object}, nil)
+		// fmt.Println("ESTAMOS EN SERVIDOR CREAMOS TABLA ", f.Object.Table, " EN DB CON ERROR", err)
 		if err != nil {
 			return nil, err
 		}
@@ -111,10 +114,6 @@ func New(m *model.Module, db model.DataBaseAdapter, id model.IdHandler, conf ...
 	//nota: al no declarar punteros se pierden posteriormente
 
 	return &f, nil
-}
-
-func (File) HtmlName() string {
-	return "file"
 }
 
 func (f File) ConfigFile() *model.FileConfig {

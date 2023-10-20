@@ -25,7 +25,7 @@ func (f File) RegisterNewFile(header_name, upload_folder, file_name, extension s
 }
 
 func (f File) FileName() string {
-	return f.idh.GetNewID()
+	return f.db.GetNewID()
 }
 
 func (f File) UploadFolderPath(form_data map[string]string) string {
