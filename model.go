@@ -6,12 +6,13 @@ import (
 
 type File struct {
 	//table
-	Id_file     string `Legend:"File Id" Input:"InputPK"`                                                   //0 id_file
-	Module_name string `Legend:"Modulo" Input:"TextNumCode"`                                                //1 module_name
-	Field_name  string `Legend:"Carpeta Campo" Input:"TextNum" PrincipalField:"ok"`                         //2 field_name
-	Folder_id   string `Legend:"Carpeta Registro" Input:"InputPK"`                                          //3 folder_id
-	Description string `Legend:"Descripción" Input:"Text" PrincipalField:"ok" SkipCompletionAllowed:"true"` //4 description
-	File_path   string `Legend:"Ubicación" Input:"FilePath" SkipCompletionAllowed:"true"`                   //5 file_path
+	Id_file     string `Legend:"File Id" Input:"InputPK"`
+	Module_name string `Legend:"Modulo" Input:"TextNumCode"`
+	Field_name  string `Legend:"Carpeta Campo" Input:"TextNum" PrincipalField:"ok"`
+	Folder_id   string `Legend:"Carpeta Registro" Input:"InputPK"`
+	File_area   string `Legend:"Area archivo" Input:"Text" PrincipalField:"ok" SkipCompletionAllowed:"true"`
+	Description string `Legend:"Descripción" Input:"Text" PrincipalField:"ok" SkipCompletionAllowed:"true"`
+	File_path   string `Legend:"Ubicación" Input:"FilePath" SkipCompletionAllowed:"true"`
 
 	//config
 	Files string `Input:"Text" NotRequiredInDB:"true"` //nombre por defecto input html = files

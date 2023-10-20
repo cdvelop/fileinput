@@ -6,19 +6,41 @@ import (
 	"github.com/cdvelop/model"
 )
 
-func (f File) GetFilePath(u *model.User, params map[string]string) (string, error) {
-	// fmt.Println("parámetros FilePath recibidos: ", params)
+func (f File) GetFilePathByID(params map[string]string) (file_path, file_area string, err error) {
+	fmt.Println("parámetros FilePath recibidos: ", params)
 
-	data, err := f.db.ReadObjectsInDB(f.Object.Table, params)
+	if len(params) != 1 {
+		return "", "", model.Error("solo se puede recibir un parámetro para leer un archivo")
+	}
+
+	id, ok := params["id"]
+	if !ok {
+		return "", "", model.Error("parámetro id no enviado para leer archivo")
+	}
+
+	err = f.ValidateField(id, false)
 	if err != nil {
-		return "", err
+		return "", "", err
+	}
+
+	data, err := f.db.ReadObjectsInDB(f.Object.Table, map[string]string{
+		f.Id_file: id,
+	})
+	if err != nil {
+		return "", "", err
 	}
 
 	if len(data) != 1 {
-		return "", fmt.Errorf("parámetros incorrectos al recuperar archivo")
+		return "", "", model.Error("parámetros incorrectos al recuperar archivo")
 	}
 
-	return data[0][f.File_path], nil
+	file_path = data[0][f.File_path]
+	file_area = data[0][f.File_area]
+
+	fmt.Println("AREA ARCHIVO = A, DB=", file_area)
+	file_area = "A"
+
+	return file_path, file_area, nil
 }
 
 func (f File) Read(u *model.User, params ...map[string]string) ([]map[string]string, error) {

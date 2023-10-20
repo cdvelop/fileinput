@@ -7,18 +7,20 @@ require github.com/cdvelop/gotools v0.0.45
 require (
 	github.com/cdvelop/strings v0.0.2 // indirect
 	github.com/cdvelop/timeserver v0.0.5 // indirect
-	github.com/cdvelop/timetools v0.0.6 // indirect
+	github.com/cdvelop/timetools v0.0.7 // indirect
 )
 
 require (
-	github.com/cdvelop/input v0.0.39
-	github.com/cdvelop/model v0.0.58
+	github.com/cdvelop/input v0.0.41
+	github.com/cdvelop/model v0.0.59
 	github.com/cdvelop/object v0.0.15
 	github.com/cdvelop/unixid v0.0.7
 	golang.org/x/text v0.13.0 // indirect
 )
 
 replace github.com/cdvelop/model => ../model
+
+replace github.com/cdvelop/object => ../object
 
 replace github.com/cdvelop/cutkey => ../cutkey
 

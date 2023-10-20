@@ -32,8 +32,3 @@ func (File) GoodTestData() (out []string) {
 func (File) WrongTestData() (out []string) {
 	return
 }
-
-func (f File) HtmlTag(id, field_name string, allow_skip_completed bool) string {
-
-	return `<input id="` + id + `" type="file" id="avatar" name="` + field_name + `" accept="image/,.png,.jpeg,.jpg" />`
-}
