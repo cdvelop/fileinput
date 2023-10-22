@@ -37,8 +37,8 @@ func (f File) GetFilePathByID(params map[string]string) (file_path, file_area st
 	file_path = data[0][f.File_path]
 	file_area = data[0][f.File_area]
 
-	fmt.Println("AREA ARCHIVO = A, DB=", file_area)
-	file_area = "A"
+	fmt.Println("AREA ARCHIVO: s, DB:" + file_area)
+	file_area = "s"
 
 	return file_path, file_area, nil
 }

@@ -1,59 +1,83 @@
-.container-files{
-    background-color: aqua;
-    min-height: 100%;
-    min-width: 100%;
-
-    max-height: 5em;
-
+.container-files {
     position: relative;
+    /* background-color: aqua; */
 
-    
-}
+    width: var(--fielsdet-width);
+    padding: 5px;
 
 
-.col-img {
-	/* min-height: 150px; */
-	/* min-width: 200px; */
-	/* margin-bottom: 30px; */
-    /* max-height:  4em; */
-    /* max-width: 4em; */
-	/* position:relative; */
-
-    max-height: 4em;
-    max-width: 4em;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-    position: relative;
 }
 
-.img-list {
-    /* width: 100%; */
-    /* height: 100%; */
-    /* border: 2px solid red; */
-    max-width: 100%;
-    max-height: 100%;
+.scroll-file-img {
+    margin: 0 auto;
+    /* background-color: coral; */
+    width: var(--fielsdet-width);
+    height: 7em;
+    /* scroll-snap */
+    overflow-y: hidden;
+    overflow-x: scroll;
+    white-space: nowrap;
+    scroll-snap-type: x mandatory;
+    
 
 }
 
-.checkbox-container {
-	position: absolute;
-	top: 0;
-	left: 0;
-	z-index: 1;
-
-    max-height: 4em;
-    max-width: 4em;
+.scroll-file-img .file-img {
+    scroll-snap-align: start;
 }
 
-.checkbox-container input[type="checkbox"]:checked + .img-list {
-	border: 2px solid red;
-  }
-
-
-
-.checkbox-container label {
-	display: block;
-	height: 100%;
-	width: 100%;
+.file-img {
+    margin: 0px 2px 0px 2px;
+    display: inline-block;
+    width: 9em;
+    height: 100%;
+    object-fit: cover;
+    transition: 0.3s all ease;
 }
+.full-screen-img{
+    width: 100%;
+}
+
+.file-img:hover {
+    filter: sepia(100%);
+    transform: scale(.97);
+}
+
+/* Anula la regla :hover para la imagen dentro del modal */
+#modal-window img:hover {
+    filter: none;
+    transform: none; 
+}
+
+.btn-prev-img,
+.btn-next-img {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 1;
+    color: transparent;
+    background: none;
+}
+
+.btn-prev-img:hover,
+.btn-next-img:hover {
+    color: var(--col-pri);
+    text-shadow: 3px 2px 4px rgba(0, 0, 0, 0.9);
+    /* background: var(--col-sec); */
+  
+}
+
+.btn-prev-img {
+    left: 0;
+}
+
+.btn-next-img {
+    right: 0;
+}
+
+
+/************ DESKTOP ************/
+@media only screen and (orientation: landscape) and (hover: hover) {}

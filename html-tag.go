@@ -2,19 +2,19 @@ package fileinput
 
 func (f File) HtmlTag(id, field_name string, allow_skip_completed bool) string {
 
-	var tags = `<div class="container-files">`
+	tags := `<div class="container-files">`
+	tags += `<button class="btn-prev-img" onclick="prevButtonFileImg(event)"><i class="arrow left"></i></button>`
 
-	// tags += `<input id="` + id + `" type="file" id="avatar" name="` + field_name + `" accept="image/,.png,.jpeg,.jpg" />`
+	tags += `<div class="scroll-file-img" onclick="imgFileSelected(event)">`
 
-	tags += `<div class="col-img">
-	<div class="checkbox-container">
-	  <label for="1697817735064087200">
-		<img src="file?id=1697817735064087200" class="img-list">
-		<input type="checkbox" id="1697817735064087200">
-	  </label>
-	</div>
-  </div>`
+	tags += `<img src="file?id=1697817735064087200" class="file-img">`
+	tags += `<img src="file?id=1697817735066634900" class="file-img">`
+	tags += `<img src="file?id=1" class="file-img">`
+	tags += `<img src="file?id=2" class="file-img">`
+	tags += `<img src="file?id=3" class="file-img">`
 
+	tags += `</div>`
+	tags += `<button class="btn-next-img" onclick="nextButtonFileImg(event)"><i class="arrow right"></i></button>`
 	tags += `</div>`
 	return tags
 }
