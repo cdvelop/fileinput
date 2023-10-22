@@ -12,7 +12,6 @@ function imgFileSelected(e) {
         // Obtiene una referencia al elemento con el ID "modal-container"
         // let modal = document.getElementById('modal-window');
 
-        // modal_windows.style.display = 'flex';
         // Clona la imagen seleccionada
         let clonedImage = e.target.cloneNode(true);
         clonedImage.classList.add('full-screen-img');
