@@ -1,6 +1,6 @@
 .container-files {
     position: relative;
-    background-color: aqua;
+    /* background-color: aqua; */
 
     width: var(--field-width);
     /* padding: 5px; */
@@ -11,15 +11,15 @@
     align-items: center;
     transition: transform 0.3s ease;
 
-    margin: 16px 0 .5vh 0;
+    margin: 1vh 0 .5vh 0;
 }
 
 
 .scroll-file_img {
     margin: 0 auto;
     /* background-color: coral; */
-    width: var(--field-width);
-    height: 7em;
+    width:calc( var(--field-width) - 4vw);
+    /* height: 7em; */
     /* scroll-snap */
     overflow-y: hidden;
     overflow-x: scroll;
@@ -38,7 +38,7 @@
 
 div[name="file_img"] {
     display: inline-block;
-    margin: 0px 2px 0px 2px;
+    margin: 2px 5px 0px 2px;
     transition: 0.3s all ease;
 }
 
@@ -53,9 +53,11 @@ div[name="file_img"] img {
     width: 100%;
 }
 
-div[name="file_img"] img:hover {
-    filter: sepia(100%);
-    transform: scale(.97);
+div[name="file_img"]:hover {
+    cursor: pointer;
+    /* filter: sepia(100%); */
+    /* transform: scale(.97); */
+    background-color: var(--col-hover);
 }
 
 /* Anula la regla :hover para la imagen dentro del modal */
@@ -67,16 +69,18 @@ div[name="file_img"] img:hover {
 button[name="previous_img"],
 button[name="next_img"] {
     position: absolute;
-    top: 0;
+    top: auto;
     bottom: 0;
     z-index: 2;
     color: transparent;
     background: none;
+    height:calc(var(--field-height) + 2.5vh);
+    /* height:100%; */
 }
 
 button[name="previous_img"]:hover,
 button[name="next_img"]:hover {
-    color: var(--col-pri);
+    color: var(--col-sec);
     text-shadow: 3px 2px 4px rgba(0, 0, 0, 0.9);
     /* background: var(--col-sec); */
 
@@ -91,16 +95,21 @@ button[name="next_img"] {
 }
 
 
-
 fieldset.file {
-    /* padding: 0em 0.2em 0.2em 0.2em; */
+    border-radius: .4em;
+    /* padding: 2em 0.2em 0.2em 0.2em; */
     padding: 0;
     z-index: 1;
-    /* height: 9em; */
-    height: 170px;
+    height: 8em;
+    /* height: 170px; */
+    /* height: 100%; */
 
-    background-color: aquamarine;
+    /* background-color: aquamarine; */
+    background: var(--col-pri);
     /* position: relative; */
+    /* margin: .5vh 6vw .5vh 1vw; */
+    margin-left: .5vw;
+    width: calc(var(--field-width) - .5vw);
 }
 
 button[name="capture"] {
@@ -124,15 +133,16 @@ span.modal-capture .icon-selected {
 
 
 .modal-capture {
+    border-radius: .4em;
     /* top: -300px; */
     /* bottom: -300px; */
     position: absolute;
     bottom: 0;
 
-    height: var(--field-height);
+    height:calc(var(--field-height) + 1.5vh);
     width: 100%;
     /* width: var(--field-width); */
-    background-color: blueviolet;
+    background-color: var(--col-ter);
     /* z-index: 0; */
 
 

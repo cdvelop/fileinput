@@ -29,5 +29,5 @@ func (f File) FileName() string {
 }
 
 func (f File) UploadFolderPath(form_data map[string]string) string {
-	return f.root_folder + "/" + form_data[f.Module_name] + "/" + form_data[f.Field_name] + "/" + form_data[f.Folder_id]
+	return f.RootFolder + "/" + form_data[f.Module_name] + "/" + form_data[f.Field_name] + "/" + form_data[f.Folder_id]
 }

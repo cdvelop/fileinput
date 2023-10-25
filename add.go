@@ -1,10 +1,6 @@
 package fileinput
 
 import (
-	"strconv"
-	"strings"
-
-	"github.com/cdvelop/gotools"
 	"github.com/cdvelop/input"
 	"github.com/cdvelop/model"
 	"github.com/cdvelop/object"
@@ -17,7 +13,7 @@ import (
 // root_folder:static_files default "app_files"
 // max_files:1, 4, 6.. default 6
 // max_kb_size:100, 400 default 50
-func New(m *model.Module, db model.DataBaseAdapter, conf ...string) (*File, error) {
+func New(m *model.Module, db model.DataBaseAdapter, c model.FileConfig) (*File, error) {
 
 	err := m.AddInputs([]*model.Input{unixid.InputPK(), input.TextNumCode(), input.TextNum(), input.FilePath(), input.Text()}, "file pkg")
 	if err != nil {
@@ -28,9 +24,10 @@ func New(m *model.Module, db model.DataBaseAdapter, conf ...string) (*File, erro
 
 	input := f.Input()
 
+	// agregar inputs al modulo
 	m.AddInputs([]*model.Input{input}, "file input")
 
-	// crear objeto
+	// crear objeto file
 	err = object.New(&f, m)
 	if err != nil {
 		return nil, err
@@ -42,64 +39,58 @@ func New(m *model.Module, db model.DataBaseAdapter, conf ...string) (*File, erro
 		MaximumFileSize:     0,
 		MaximumKbSize:       50,
 		AllowedExtensions:   ".jpg, .png, .jpeg",
+
+		RootFolder: "app_files",
+		FileType:   "imagen",
+
+		IdFieldName:    "",
+		Name:           "",
+		Legend:         "Imágenes",
+		TabIndexNumber: "0",
 	}
 
 	f.db = db
-	f.filetype = "imagen"
-	f.root_folder = "app_files"
 
-	var field_name string
+	if c.Name == "" {
+		return nil, model.Error(`fileinput error FileConfig.Name:"nombre_campo" no ingresado`)
+	} else {
+		f.FileConfig.Name = c.Name
+	}
 
-	for _, option := range conf {
+	if c.TabIndexNumber != "" {
+		f.FileConfig.TabIndexNumber = c.TabIndexNumber
+	}
 
-		switch {
+	if c.RootFolder != "" {
+		f.RootFolder = c.RootFolder
+	}
 
-		case strings.Contains(option, "field_name:"):
-			gotools.ExtractTwoPointArgument(option, &field_name)
+	if c.FileType != "" {
+		f.FileConfig.FileType = c.FileType
 
-		case strings.Contains(option, "root_folder:"):
-			gotools.ExtractTwoPointArgument(option, &f.root_folder)
-
-		case strings.Contains(option, "filetype:"):
-			gotools.ExtractTwoPointArgument(option, &f.filetype)
-
-			switch f.filetype {
-			case "video":
-				f.FileConfig.AllowedExtensions = ".avi, .mkv, .mp4"
-			case "document":
-				f.FileConfig.AllowedExtensions = ".doc, .xlsx, .txt"
-			case "pdf":
-				f.FileConfig.AllowedExtensions = ".pdf"
-			}
-
-		case strings.Contains(option, "max_files:"):
-			var max_files string
-			gotools.ExtractTwoPointArgument(option, &max_files)
-
-			num, err := strconv.ParseInt(max_files, 10, 64)
-			if err != nil {
-				return nil, model.Error("Error al convertir max_files la cadena: " + max_files + " " + err.Error())
-			}
-			f.FileConfig.MaximumFilesAllowed = num
-
-		case strings.Contains(option, "max_kb_size:"):
-			var max_kb_size string
-			gotools.ExtractTwoPointArgument(option, &max_kb_size)
-
-			num, err := strconv.ParseInt(max_kb_size, 10, 64)
-			if err != nil {
-				return nil, model.Error("Error al convertir max_kb_size la cadena: " + max_kb_size + " " + err.Error())
-			}
-			f.FileConfig.MaximumKbSize = num
-
+		switch c.FileType {
+		case "video":
+			f.Legend = "Videos"
+			f.FileConfig.AllowedExtensions = ".avi, .mkv, .mp4"
+		case "document":
+			f.Legend = "Documentos"
+			f.FileConfig.AllowedExtensions = ".doc, .xlsx, .txt"
+		case "pdf":
+			f.Legend = "Documentos PDF"
+			f.FileConfig.AllowedExtensions = ".pdf"
 		}
+
 	}
 
-	if field_name == "" {
-		return nil, model.Error(`fileinput error field_name:"nombre_campo" no ingresado`)
+	if c.MaximumFilesAllowed != f.MaximumFilesAllowed {
+		f.MaximumFilesAllowed = c.MaximumFilesAllowed
 	}
 
-	f.Object.Name += "." + field_name
+	if c.MaximumKbSize != f.FileConfig.MaximumKbSize {
+		f.FileConfig.MaximumKbSize = c.MaximumKbSize
+	}
+
+	f.Object.Name += "." + f.FileConfig.Name
 
 	f.FileConfig.MaximumFileSize = int64(float64(f.FileConfig.MaximumFilesAllowed*f.FileConfig.MaximumKbSize*1024) * 1.05)
 

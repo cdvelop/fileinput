@@ -14,14 +14,10 @@ type File struct {
 	Description string `Legend:"Descripción" Input:"Text" PrincipalField:"ok" SkipCompletionAllowed:"true"`
 	File_path   string `Legend:"Ubicación" Input:"FilePath" SkipCompletionAllowed:"true"`
 
-	//config
 	Files string `Input:"Text" NotRequiredInDB:"true"` //nombre por defecto input html = files
 
 	Object *model.Object
 	db     model.DataBaseAdapter
-
-	filetype    string //imagen, video, document
-	root_folder string //ej: "./app_files"
 
 	model.FileConfig
 }
