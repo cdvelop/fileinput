@@ -1,27 +1,19 @@
 
-function prevButtonFileImg(e) {
-    MoveScrollFileImg("left", e)
-}
-
-function nextButtonFileImg(e) {
-    MoveScrollFileImg("right", e)
-}
-
-function MoveScrollFileImg(to, e) {
-
+function moveScrollFileImg(t) {
+    // console.log("TARGET:",t)
     let move_left = -100
-    if (to === "right") {
+    if (t.name === "next_img") {
         move_left = 100
     }
 
-    const tagname = e.target.tagName.toLowerCase()
-    // console.log("prev",e.target,"tagname:",tagname)
-    let container = e.target.parentNode
-    if (tagname === "i") {
-        container = container.parentNode
-    }
+    // const tagname = t.tagName.toLowerCase()
+    // console.log("tagname:",tagname)
+    let container = t.parentNode
+    // if (tagname === "i") {
+    //     container = container.parentNode
+    // }
 
-    container = container.querySelector('.scroll-file-img')
+    container = container.querySelector('.scroll-file_img')
     // console.log("container",container)
     container.scrollBy({ left: move_left, behavior: 'smooth' }); // Ajusta el valor según lo que desees
 

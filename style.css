@@ -14,7 +14,8 @@
     margin: 16px 0 .5vh 0;
 }
 
-.scroll-file-img {
+
+.scroll-file_img {
     margin: 0 auto;
     /* background-color: coral; */
     width: var(--field-width);
@@ -26,26 +27,33 @@
     scroll-snap-type: x mandatory;
 
     z-index: 1;
+
+    /* display: flex; */
+    /* align-items: center; */
 }
 
-.scroll-file-img .file-img {
+.scroll-file_img div[name="file_img"] img {
     scroll-snap-align: start;
 }
 
-.file-img {
-    margin: 0px 2px 0px 2px;
+div[name="file_img"] {
     display: inline-block;
-    width: 9em;
-    height: 100%;
-    object-fit: cover;
+    margin: 0px 2px 0px 2px;
     transition: 0.3s all ease;
+}
+
+div[name="file_img"] img {
+    width: 9em;
+    height: 6em;
+    /* height: 100%; */
+    object-fit: cover;
 }
 
 .full-screen-img {
     width: 100%;
 }
 
-.file-img:hover {
+div[name="file_img"] img:hover {
     filter: sepia(100%);
     transform: scale(.97);
 }
@@ -56,8 +64,8 @@
     transform: none;
 }
 
-.btn-prev-img,
-.btn-next-img {
+button[name="previous_img"],
+button[name="next_img"] {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -66,19 +74,19 @@
     background: none;
 }
 
-.btn-prev-img:hover,
-.btn-next-img:hover {
+button[name="previous_img"]:hover,
+button[name="next_img"]:hover {
     color: var(--col-pri);
     text-shadow: 3px 2px 4px rgba(0, 0, 0, 0.9);
     /* background: var(--col-sec); */
 
 }
 
-.btn-prev-img {
+button[name="previous_img"] {
     left: 0;
 }
 
-.btn-next-img {
+button[name="next_img"] {
     right: 0;
 }
 
@@ -95,13 +103,18 @@ fieldset.file {
     /* position: relative; */
 }
 
-span.modal-capture .basic-legend {
+button[name="capture"] {
+    /* position: relative; */
+    /* span.modal-capture .basic-legend { */
 
+    height: 30px;
     width: 40px;
-    margin-left: auto;
-    margin-right: auto;
     cursor: pointer;
-    position: relative;
+     /* top: -2px; */
+
+    z-index: 2;
+    background-color: var(--col-sec);
+    border-radius: .4em;
 }
 
 span.modal-capture .icon-selected {
@@ -120,9 +133,13 @@ span.modal-capture .icon-selected {
     width: 100%;
     /* width: var(--field-width); */
     background-color: blueviolet;
-    z-index: 0;
+    /* z-index: 0; */
+
 
     transition: 0.4s all ease;
+
+    display: flex;
+    justify-content: center;
 }
 
 .expand {

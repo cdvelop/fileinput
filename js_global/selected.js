@@ -1,4 +1,5 @@
 function imgFileSelected(e) {
+    e.stopPropagation();
     const tagname = e.target.tagName.toLowerCase()
     if (tagname === "img") {
         // console.log("prev", e.target, "tagname:", tagname)
