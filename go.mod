@@ -3,7 +3,7 @@ module github.com/cdvelop/fileinput
 go 1.20
 
 require (
-	github.com/cdvelop/strings v0.0.2 // indirect
+	github.com/cdvelop/strings v0.0.3 // indirect
 	github.com/cdvelop/timeserver v0.0.5 // indirect
 	github.com/cdvelop/timetools v0.0.9 // indirect
 )

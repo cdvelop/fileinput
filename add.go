@@ -38,7 +38,7 @@ func New(m *model.Module, db model.DataBaseAdapter, c model.FileConfig, h *model
 		InputNameWithFiles:  f.Files,
 		MaximumFileSize:     0,
 		MaximumKbSize:       50,
-		AllowedExtensions:   ".jpg, .png, .jpeg",
+		AllowedExtensions:   ",.jpg, .png, .jpeg",
 
 		RootFolder: "app_files",
 		FileType:   "imagen",

@@ -18,6 +18,7 @@ type File struct {
 
 	Object *model.Object
 	db     model.DataBaseAdapter
+	App    *model.Handlers
 
 	model.FileConfig
 }
