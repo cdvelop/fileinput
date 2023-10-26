@@ -13,7 +13,7 @@ import (
 // root_folder:static_files default "app_files"
 // max_files:1, 4, 6.. default 6
 // max_kb_size:100, 400 default 50
-func New(m *model.Module, db model.DataBaseAdapter, c model.FileConfig) (*File, error) {
+func New(m *model.Module, db model.DataBaseAdapter, c model.FileConfig, h *model.Handlers) (*File, error) {
 
 	err := m.AddInputs([]*model.Input{unixid.InputPK(), input.TextNumCode(), input.TextNum(), input.FilePath(), input.Text()}, "file pkg")
 	if err != nil {
@@ -28,7 +28,7 @@ func New(m *model.Module, db model.DataBaseAdapter, c model.FileConfig) (*File, 
 	m.AddInputs([]*model.Input{input}, "file input")
 
 	// crear objeto file
-	err = object.New(&f, m)
+	err = object.New(&f, m, h)
 	if err != nil {
 		return nil, err
 	}

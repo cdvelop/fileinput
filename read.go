@@ -1,13 +1,11 @@
 package fileinput
 
 import (
-	"fmt"
-
 	"github.com/cdvelop/model"
 )
 
 func (f File) GetFilePathByID(params map[string]string) (file_path, file_area string, err error) {
-	fmt.Println("parámetros FilePath recibidos: ", params)
+	// fmt.Println("parámetros FilePath recibidos: ", params)
 
 	if len(params) != 1 {
 		return "", "", model.Error("solo se puede recibir un parámetro para leer un archivo")
@@ -37,8 +35,7 @@ func (f File) GetFilePathByID(params map[string]string) (file_path, file_area st
 	file_path = data[0][f.File_path]
 	file_area = data[0][f.File_area]
 
-	fmt.Println("AREA ARCHIVO: s, DB:" + file_area)
-	file_area = "s"
+	// fmt.Println("AREA ARCHIVO: s, DB:" + file_area)
 
 	return file_path, file_area, nil
 }
@@ -48,7 +45,7 @@ func (f File) Read(u *model.User, params ...map[string]string) ([]map[string]str
 	// fmt.Println("parámetros leer recibidos:", params)
 
 	for _, v := range params {
-		v["SELECT"] = f.Module_name + "," + f.Field_name + "," + f.Folder_id + "," + f.Description
+		v["SELECT"] = f.Id_file + "," + f.Module_name + "," + f.Field_name + "," + f.Folder_id + "," + f.Description
 	}
 
 	data, err := f.db.ReadObjectsInDB(f.Object.Table, params...)
