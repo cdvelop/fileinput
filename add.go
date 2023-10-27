@@ -43,10 +43,9 @@ func New(m *model.Module, db model.DataBaseAdapter, c model.FileConfig, h *model
 		RootFolder: "app_files",
 		FileType:   "imagen",
 
-		IdFieldName:    "",
-		Name:           "",
-		Legend:         "Imágenes",
-		TabIndexNumber: "0",
+		IdFieldName: "",
+		Name:        "",
+		Legend:      "Imágenes",
 	}
 
 	f.db = db
@@ -57,9 +56,7 @@ func New(m *model.Module, db model.DataBaseAdapter, c model.FileConfig, h *model
 		f.FileConfig.Name = c.Name
 	}
 
-	if c.TabIndexNumber != "" {
-		f.FileConfig.TabIndexNumber = c.TabIndexNumber
-	}
+	f.DefaultEnableInput = c.DefaultEnableInput
 
 	if c.RootFolder != "" {
 		f.RootFolder = c.RootFolder

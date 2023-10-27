@@ -13,6 +13,8 @@ function FileInputClicking(module, opt) {
 }
 
 
+
+
 function clickButtonCapture(container) {
     var captureButton = container.querySelector("button[name='capture']");
     // Dispara el evento de clic en el botón

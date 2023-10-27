@@ -2,8 +2,14 @@
 
 function CameraVideo(form) {
     let camera_is_closed = true;
-    let video_cont = form.querySelector('.video-container')
+    const container_files = form.querySelector('.container-files')
+    const span = container_files.querySelector('span.modal-capture')
+
+    const video_cont = form.querySelector('.video-container')
     let video = form.querySelector('#video_capture');
+
+    const button = form.querySelector('button[name="capture"]')
+    
     const compute_style = window.getComputedStyle(form);
     let width = parseInt(compute_style.getPropertyValue('width'));
     let height = 0;
@@ -18,6 +24,7 @@ function CameraVideo(form) {
     }
 
     function enableCameraCapture() {
+        shiftContainer(form, container_files, span, "on")
         camera_is_closed = false;
         navigator.mediaDevices
         .getUserMedia({ video: true, audio: false })
@@ -33,18 +40,19 @@ function CameraVideo(form) {
         // video.style.display = "block";
         // video.classList.remove("video-hidden");
         video_cont.classList.remove("video-hidden");
+        button.classList.add('icon-selected');
     }
-
-    console.log("camera_is_closed:", camera_is_closed)
-
+    
     function disableCameraCapture() {
         if (!camera_is_closed) {
+            shiftContainer(form, container_files, span, "off")
             video.srcObject.getTracks().forEach((track) => track.stop());
             camera_is_closed = true;
             video.removeEventListener("canplay", canplayListener, false);
             // video.style.display = "none"; // Ocultar el elemento de video
             // Para ocultar el elemento de video suavemente
             video_cont.classList.add("video-hidden");
+            button.classList.remove('icon-selected');
         }
     }
 
@@ -53,10 +61,15 @@ function CameraVideo(form) {
     }
 
     // disableCameraCapture();
+    function isCameraClosed() {
+        return camera_is_closed;
+    }
+
 
     return {
         Enable: enableCameraCapture,
         Disable: disableCameraCapture,
-        FormName: formName
+        FormName: formName,
+        IsClosed: isCameraClosed
     };
 }

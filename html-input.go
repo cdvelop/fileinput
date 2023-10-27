@@ -7,11 +7,12 @@ import (
 func (f *File) Input() *model.Input {
 
 	return &model.Input{
-		InputName: f.Name(),
-		Tag:       f,
-		InputView: f,
-		Validate:  f,
-		TestData:  f,
+		InputName:  f.Name(),
+		Tag:        f,
+		InputView:  f,
+		InputReset: f,
+		Validate:   f,
+		TestData:   f,
 	}
 }
 

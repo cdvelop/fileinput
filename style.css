@@ -160,9 +160,6 @@ span.modal-capture .icon-selected {
     height: calc(var(--module-contend-height) - var(--crud-buttons-container-height) - var(--title-height) - .5vh);
 }
 
-
-
-
 .video-container {
     /* padding: 20px 0 0 0; */
     position: absolute;
@@ -189,14 +186,18 @@ span.modal-capture .icon-selected {
   }
 
 video{
+    /* height: auto; */
+    /* width: auto; */
+    /* height: auto; */
     object-fit: cover;
 }
+
 
 .video-hidden {
     /* opacity: 0;
     visibility: hidden;
     transition: opacity 0.5s; /* Duración de la transición */
-    /* display: none;  */
+    display: none; 
 
     max-height: 0;
     opacity: 0;
