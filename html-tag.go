@@ -1,11 +1,25 @@
 package fileinput
 
+import "github.com/cdvelop/strings"
+
 func (f File) HtmlTag(id, field_name string, allow_skip_completed bool) string {
 
 	tags := `<div class="container-files">`
-	tags += `<span class="modal-capture"><button type="button" name="capture" onclick="openCapture(this)"><svg aria-hidden="true" focusable="false" class="form-btn"><use xlink:href="#icon-camera"/></svg></button></span>`
+	tags += `<span class="modal-capture">
+	<button id="` + id + `" type="button" name="capture" onclick="openCapture(this)"><svg aria-hidden="true" focusable="false" class="form-btn"><use xlink:href="#icon-camera"/></svg></button>`
 
-	tags += `<fieldset tabindex="` + f.TabIndexNumber + ` "class="file border">
+	tags += `<div class="video-container"><video title="toca el video para tomar una captura" onclick="takePicture(this)" id="video_capture">Video stream no disponible en este dispositivo.</video></div>`
+
+	tags += `<div class="output"><img id="photo_capture" alt="The screen capture in this box."/></div>`
+
+	tags += `</span>`
+
+	long := len(id)
+	if long >= 2 {
+		f.TabIndexNumber = id[long-1:]
+	}
+
+	tags += `<fieldset tabindex="` + f.TabIndexNumber + `" class="file border">
 	<legend class="basic-legend"><label for="` + id + `">` + f.Legend + `</label></legend>`
 
 	tags += `<button type="button" name="previous_img" onclick="moveScrollFileImg(this)"><i class="arrow left"></i></button>`
@@ -27,4 +41,18 @@ func (f File) HtmlTag(id, field_name string, allow_skip_completed bool) string {
 	tags += `</div>`
 
 	return tags
+}
+
+func buildTag(data []string) (html string) {
+	for _, id := range data {
+		if id != "" {
+			html += `<div name="file_img"><img src="file?id=` + id + `"></div>`
+		}
+	}
+	return
+}
+
+func (f File) BuildNewView(values string) (html string) {
+	data := strings.Split(values, ",")
+	return buildTag(data)
 }

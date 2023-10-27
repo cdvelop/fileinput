@@ -1,3 +1,5 @@
+
+let cameraVideo;
 function openCapture(t) {
     // e.stopPropagation()
     let span = getSpanContainer(t)
@@ -7,26 +9,29 @@ function openCapture(t) {
 
         let button = span.querySelector('button')
         button.classList.toggle('icon-selected');
+        const form = container.parentNode;
 
-        shiftContainer(container, span, state)
-
-
-        if (state == "on") {
+        shiftContainer(form, container, span, state)
 
 
-        } else {// off
-            
-
+        if (cameraVideo === undefined) {
+            cameraVideo = CameraVideo(form);
+        } else if (cameraVideo.FormName() != form.name) {
+            cameraVideo = CameraVideo(form);
         }
 
+        if (state == "on") {
+            cameraVideo.Enable();
+        } else {// off
+            cameraVideo.Disable();
+        }
     }
 }
 
-function shiftContainer(container, span, state) {
-    const form = container.parentNode;
+function shiftContainer(form, container, span, state) {
 
     let shiftInY = 0;
- 
+
     if (state == "on") {
         shiftInY = form.clientHeight - container.offsetTop;
     }
@@ -65,22 +70,5 @@ function getState(container) {
 
 
 function getSpanContainer(t) {
-    // const tagname = t.tagName.toLowerCase()
-    // let span;
-    // switch (tagname) {
-    //     case "legend":
-    //         span = e.currentTarget;
-    //         break;
-    //     case "button":
-    //         span = t.closest('span');
-    //         break;
-    //     case "svg":
-    //         span = t.parentNode.parentNode;
-    //         break;
-    //     case "use":
-    //         span = t.parentNode.parentNode.parentNode;
-    //         break;
-    // }
-    // console.log(t.name, " tag name:", tagname, "span", span)
     return t.closest('span')
 }

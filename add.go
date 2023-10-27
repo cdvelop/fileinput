@@ -104,6 +104,8 @@ func New(m *model.Module, db model.DataBaseAdapter, c model.FileConfig, h *model
 
 	//nota: al no declarar punteros se pierden posteriormente
 
+	f.Object.ViewHandler = f
+
 	return &f, nil
 }
 
