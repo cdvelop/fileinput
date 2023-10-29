@@ -16,7 +16,7 @@ func (f File) GetFilePathByID(params map[string]string) (file_path, file_area st
 		return "", "", model.Error("parámetro id no enviado para leer archivo")
 	}
 
-	err = f.ValidateField(id, false)
+	err = f.input_id.ValidateField(id, false)
 	if err != nil {
 		return "", "", err
 	}
@@ -42,10 +42,14 @@ func (f File) GetFilePathByID(params map[string]string) (file_path, file_area st
 
 func (f File) Read(u *model.User, params ...map[string]string) ([]map[string]string, error) {
 
+	var file_path string
+	if f.AddBinaryInReadResponse {
+		file_path = "," + f.File_path
+	}
 	// fmt.Println("parámetros leer recibidos:", params)
 
 	for _, v := range params {
-		v["SELECT"] = f.Id_file + "," + f.Module_name + "," + f.Field_name + "," + f.Folder_id + "," + f.Description
+		v["SELECT"] = f.Id_file + "," + f.Folder_id + "," + f.Description + file_path
 	}
 
 	data, err := f.db.ReadObjectsInDB(f.Object.Table, params...)

@@ -1,13 +1,16 @@
 package fileinput
 
-func (f File) RegisterNewFile(header_name, upload_folder, file_name, extension string, form_data map[string]string) (map[string]string, error) {
+import "github.com/cdvelop/model"
 
-	form_data[f.Id_file] = file_name
-	form_data[f.File_path] = upload_folder + "/" + file_name + extension
+func (f File) RegisterNewFile(new *model.FileNewToStore, form_data map[string]string) (map[string]string, error) {
+
+	form_data[f.Id_file] = new.FileNameOnDisk
+	form_data[f.File_path] = new.UploadFolder + "/" + new.FileNameOnDisk + new.Extension
+	form_data[f.File_area] = new.FileArea
 
 	// cortar el nombre del archivo para eliminar la extensión antes de almacenarlo
-	if len(header_name) > 5 {
-		form_data[f.Description] = header_name[:len(header_name)-len(extension)]
+	if len(new.DescriptionInputName) > 5 {
+		form_data[f.Description] = new.DescriptionInputName[:len(new.DescriptionInputName)-len(new.Extension)]
 	}
 
 	// borramos el campo files
@@ -19,12 +22,12 @@ func (f File) RegisterNewFile(header_name, upload_folder, file_name, extension s
 	}
 
 	return map[string]string{
-		f.Id_file:     file_name,
+		f.Id_file:     new.FileNameOnDisk,
 		f.Description: form_data[f.Description],
 	}, nil
 }
 
-func (f File) FileName() string {
+func (f File) GenerateFileNameOnDisk() string {
 	return f.db.GetNewID()
 }
 

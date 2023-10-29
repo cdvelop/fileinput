@@ -7,32 +7,28 @@ import (
 func (f *File) Input() *model.Input {
 
 	return &model.Input{
-		InputName:  f.Name(),
+		InputName:  "file",
 		Tag:        f,
 		InputView:  f,
 		InputReset: f,
-		Validate:   f,
-		TestData:   f,
+		Validate:   nil,
+		TestData:   nil,
 	}
-}
-
-func (File) Name() string {
-	return "File"
 }
 
 func (File) HtmlName() string {
 	return "file"
 }
 
-func (File) ValidateField(data_in string, skip_validation bool, options ...string) error {
-	return nil
-}
+// func (f File) ValidateField(data_in string, skip_validation bool, options ...string) error {
+// 	return f.input_id.ValidateField(data_in, skip_validation)
+// }
 
-func (File) GoodTestData() (out []string) {
+// func (File) GoodTestData() (out []string) {
 
-	return
-}
+// 	return
+// }
 
-func (File) WrongTestData() (out []string) {
-	return
-}
+// func (File) WrongTestData() (out []string) {
+// 	return
+// }

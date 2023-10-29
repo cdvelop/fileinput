@@ -13,35 +13,44 @@ import (
 // root_folder:static_files default "app_files"
 // max_files:1, 4, 6.. default 6
 // max_kb_size:100, 400 default 50
-func New(m *model.Module, db model.DataBaseAdapter, c model.FileConfig, h *model.Handlers) (*File, error) {
-
-	err := m.AddInputs([]*model.Input{unixid.InputPK(), input.TextNumCode(), input.TextNum(), input.FilePath(), input.Text()}, "file pkg")
-	if err != nil {
-		return nil, err
-	}
+func New(o *model.Object, db model.DataBaseAdapter, c model.FileConfig, h *model.Handlers) (*File, error) {
 
 	f := File{}
 
-	input := f.Input()
+	input_id := unixid.InputPK()
 
-	// agregar inputs al modulo
-	m.AddInputs([]*model.Input{input}, "file input")
-
-	// crear objeto file
-	err = object.New(&f, m, h)
+	// agregar inputs usados en tabla file al modulo
+	err := o.Module.AddInputs([]*model.Input{input_id, f.Input(), FileType(), input.TextNumCode(), input.TextNum(), input.FilePath(), input.TextOnly()}, "file pkg")
 	if err != nil {
 		return nil, err
 	}
 
+	// m.AddInputs([]*model.Input{input}, "file input")
+
+	// crear objeto file
+	err = object.New(&f, o.Module, h)
+	if err != nil {
+		return nil, err
+	}
+
+	f.source = o          // asignamos el objeto origen
+	f.input_id = input_id // asignamos input id para verificaciones en lectura
+
+	// configuración por defecto file
 	f.FileConfig = model.FileConfig{
 		MaximumFilesAllowed: 6,
 		InputNameWithFiles:  f.Files,
 		MaximumFileSize:     0,
 		MaximumKbSize:       50,
 		AllowedExtensions:   ",.jpg, .png, .jpeg",
+		ImagenWidth:         "800",
+		ImagenHeight:        "600",
 
 		RootFolder: "app_files",
 		FileType:   "imagen",
+
+		StoreBinaryInDbEngine:   c.StoreBinaryInDbEngine,
+		AddBinaryInReadResponse: c.AddBinaryInReadResponse,
 
 		IdFieldName: "",
 		Name:        "",
@@ -60,6 +69,14 @@ func New(m *model.Module, db model.DataBaseAdapter, c model.FileConfig, h *model
 
 	if c.RootFolder != "" {
 		f.RootFolder = c.RootFolder
+	}
+
+	if c.ImagenWidth != "" {
+		f.ImagenWidth = c.ImagenWidth
+	}
+
+	if c.ImagenHeight != "" {
+		f.ImagenHeight = c.ImagenHeight
 	}
 
 	if c.FileType != "" {
@@ -102,6 +119,19 @@ func New(m *model.Module, db model.DataBaseAdapter, c model.FileConfig, h *model
 	//nota: al no declarar punteros se pierden posteriormente
 
 	f.Object.ViewHandler = f
+
+	// agrego el campo input file al objeto para mostrarlo en la vista
+	o.Fields = append(o.Fields, model.Field{
+		Name:                  f.Files,
+		Legend:                f.Legend,
+		SourceTable:           f.Object.Table,
+		NotRenderHtml:         false,
+		Input:                 f.Input(),
+		SkipCompletionAllowed: true,
+		Unique:                false,
+		NotRequiredInDB:       true,
+		Encrypted:             false,
+	})
 
 	return &f, nil
 }
