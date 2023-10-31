@@ -20,12 +20,10 @@ func New(o *model.Object, db model.DataBaseAdapter, c model.FileConfig, h *model
 	input_id := unixid.InputPK()
 
 	// agregar inputs usados en tabla file al modulo
-	err := o.Module.AddInputs([]*model.Input{input_id, f.Input(), FileType(), input.TextNumCode(), input.TextNum(), input.FilePath(), input.TextOnly()}, "file pkg")
+	err := o.Module.AddInputs([]*model.Input{input_id, f.Input(), FileType(), SavedMode(), input.Text(), input.TextNumCode(), input.TextNum(), input.FilePath(), input.TextOnly()}, "file pkg")
 	if err != nil {
 		return nil, err
 	}
-
-	// m.AddInputs([]*model.Input{input}, "file input")
 
 	// crear objeto file
 	err = object.New(&f, o.Module, h)
@@ -47,22 +45,19 @@ func New(o *model.Object, db model.DataBaseAdapter, c model.FileConfig, h *model
 		ImagenHeight:        "600",
 
 		RootFolder: "app_files",
-		FileType:   "imagen",
+		FileType:   "i",
 
-		StoreBinaryInDbEngine:   c.StoreBinaryInDbEngine,
-		AddBinaryInReadResponse: c.AddBinaryInReadResponse,
+		SavedAsBlobInDb: c.SavedAsBlobInDb,
 
-		IdFieldName: "",
-		Name:        "",
+		IdFieldName: o.PrimaryKeyName(),
+		Name:        c.Name,
 		Legend:      "Imágenes",
 	}
 
 	f.db = db
 
-	if c.Name == "" {
+	if f.Name == "" {
 		return nil, model.Error(`fileinput error FileConfig.Name:"nombre_campo" no ingresado`)
-	} else {
-		f.FileConfig.Name = c.Name
 	}
 
 	f.DefaultEnableInput = c.DefaultEnableInput
@@ -86,12 +81,15 @@ func New(o *model.Object, db model.DataBaseAdapter, c model.FileConfig, h *model
 		case "video":
 			f.Legend = "Videos"
 			f.FileConfig.AllowedExtensions = ".avi, .mkv, .mp4"
+			f.FileType = "v"
 		case "document":
 			f.Legend = "Documentos"
 			f.FileConfig.AllowedExtensions = ".doc, .xlsx, .txt"
+			f.FileType = "d"
 		case "pdf":
 			f.Legend = "Documentos PDF"
 			f.FileConfig.AllowedExtensions = ".pdf"
+			f.FileType = "p"
 		}
 
 	}
@@ -125,12 +123,9 @@ func New(o *model.Object, db model.DataBaseAdapter, c model.FileConfig, h *model
 		Name:                  f.Files,
 		Legend:                f.Legend,
 		SourceTable:           f.Object.Table,
-		NotRenderHtml:         false,
 		Input:                 f.Input(),
 		SkipCompletionAllowed: true,
-		Unique:                false,
 		NotRequiredInDB:       true,
-		Encrypted:             false,
 	})
 
 	return &f, nil

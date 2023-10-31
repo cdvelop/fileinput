@@ -5,8 +5,9 @@ import "github.com/cdvelop/model"
 func (f File) RegisterNewFile(new *model.FileNewToStore, form_data map[string]string) (map[string]string, error) {
 
 	form_data[f.Id_file] = new.FileNameOnDisk
-	form_data[f.File_path] = new.UploadFolder + "/" + new.FileNameOnDisk + new.Extension
 	form_data[f.File_area] = new.FileArea
+	form_data[f.Extension] = new.Extension
+	form_data[f.File_data] = string(new.BlobData)
 
 	// cortar el nombre del archivo para eliminar la extensión antes de almacenarlo
 	if len(new.DescriptionInputName) > 5 {
@@ -29,8 +30,4 @@ func (f File) RegisterNewFile(new *model.FileNewToStore, form_data map[string]st
 
 func (f File) GenerateFileNameOnDisk() string {
 	return f.db.GetNewID()
-}
-
-func (f File) UploadFolderPath(form_data map[string]string) string {
-	return f.RootFolder + "/" + form_data[f.Module_name] + "/" + form_data[f.Field_name] + "/" + form_data[f.Folder_id]
 }

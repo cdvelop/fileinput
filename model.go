@@ -11,9 +11,9 @@ type File struct {
 	Field_name  string `Legend:"Carpeta Campo" Input:"TextNum" PrincipalField:"ok"`
 	Folder_id   string `Legend:"Carpeta Registro" Input:"InputPK"`
 	File_area   string `Legend:"Area archivo" Input:"Text" PrincipalField:"ok" SkipCompletionAllowed:"true"`
+	Extension   string `Legend:"Tipo Archivo" Input:"Text" SkipCompletionAllowed:"true"`
 	Description string `Legend:"Descripción" Input:"Text" PrincipalField:"ok" SkipCompletionAllowed:"true"`
-	File_Type   string `Legend:"Tipo Archivo" Input:"FileType"` //ej v=video,i=imagen,p=pdf,e=excel,w=word
-	File_path   string `Legend:"Ubicación" Input:"FilePath" SkipCompletionAllowed:"true"`
+	File_data   string `Legend:"Ubicación" Input:"Text" SkipCompletionAllowed:"true"`
 
 	Files string `Input:"Text" NotRequiredInDB:"true"` //nombre por defecto input html = files
 
