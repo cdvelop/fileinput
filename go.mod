@@ -3,15 +3,15 @@ module github.com/cdvelop/fileinput
 go 1.20
 
 require (
+	github.com/cdvelop/strings v0.0.3 // indirect
 	github.com/cdvelop/timeserver v0.0.5 // indirect
 	github.com/cdvelop/timetools v0.0.9 // indirect
 )
 
 require (
 	github.com/cdvelop/input v0.0.43
-	github.com/cdvelop/model v0.0.62
+	github.com/cdvelop/model v0.0.63
 	github.com/cdvelop/object v0.0.15
-	github.com/cdvelop/strings v0.0.3
 	github.com/cdvelop/unixid v0.0.9
 )
 

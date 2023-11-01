@@ -6,5 +6,5 @@ func (f File) BuildFilePath(data map[string]string) (file_path string) {
 }
 
 func (f File) UploadFolderPath(data map[string]string) string {
-	return f.RootFolder + "/" + data[f.Module_name] + "/" + data[f.Field_name] + "/" + data[f.Folder_id]
+	return f.RootFolder + "/" + data[f.Module_name] + "/" + data[f.Field_name] + "/" + data[f.Object_id]
 }

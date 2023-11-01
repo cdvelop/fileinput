@@ -1,5 +1,5 @@
 
-let cameraVideo;
+let camera;
 function openCapture(t) {
     let span = t.closest('span')
     if (span != undefined) {
@@ -7,16 +7,16 @@ function openCapture(t) {
         const form = container.parentNode;
 
 
-        if (cameraVideo === undefined) {
-            cameraVideo = CameraVideo(form);
-        } else if (cameraVideo.FormName() != form.name) {
-            cameraVideo = CameraVideo(form);
+        if (camera === undefined) {
+            camera = Camera(form);
+        } else if (camera.FormName() != form.name) {
+            camera = Camera(form);
         }
 
-        if (cameraVideo.IsClosed()) {
-            cameraVideo.Enable();
+        if (camera.IsClosed()) {
+            camera.Enable();
         } else {
-            cameraVideo.Disable();
+            camera.Disable();
         }
      
     }

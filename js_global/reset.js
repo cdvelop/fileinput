@@ -3,9 +3,9 @@ function resetInputFile(o) {
     //1 apagar la cámara si esta encendida
     // console.log("RESET INPUT FILE:", o)
 
-    if (cameraVideo != undefined) {
-        if (!cameraVideo.IsClosed()) {
-            cameraVideo.Disable();
+    if (camera != undefined) {
+        if (!camera.IsClosed()) {
+            camera.Disable();
         }
     }
     // 2 limpiando input

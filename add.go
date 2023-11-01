@@ -49,12 +49,10 @@ func New(o *model.Object, db model.DataBaseAdapter, c model.FileConfig, h *model
 
 		SavedAsBlobInDb: c.SavedAsBlobInDb,
 
-		IdFieldName: o.PrimaryKeyName(),
-		Name:        c.Name,
-		Legend:      "Imágenes",
+		FieldNameWithObjectID: o.PrimaryKeyName(),
+		Name:                  c.Name,
+		Legend:                "Imágenes",
 	}
-
-	f.db = db
 
 	if f.Name == "" {
 		return nil, model.Error(`fileinput error FileConfig.Name:"nombre_campo" no ingresado`)
@@ -106,7 +104,7 @@ func New(o *model.Object, db model.DataBaseAdapter, c model.FileConfig, h *model
 
 	f.FileConfig.MaximumFileSize = int64(float64(f.FileConfig.MaximumFilesAllowed*f.FileConfig.MaximumKbSize*1024) * 1.05)
 
-	if !f.db.RunOnClientDB() { // verificamos la base de datos solo si estamos en el servidor
+	if !f.App.RunOnClientDB() { // verificamos la base de datos solo si estamos en el servidor
 		err = db.CreateTablesInDB([]*model.Object{f.Object}, nil)
 		// fmt.Println("ESTAMOS EN SERVIDOR CREAMOS TABLA ", f.Object.Table, " EN DB CON ERROR", err)
 		if err != nil {

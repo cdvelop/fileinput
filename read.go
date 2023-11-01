@@ -1,8 +1,6 @@
 package fileinput
 
 import (
-	"fmt"
-
 	"github.com/cdvelop/model"
 )
 
@@ -23,7 +21,7 @@ func (f File) GetFilePathByID(params map[string]string) (file_path, file_area st
 		return "", "", err
 	}
 
-	data, err := f.db.ReadObjectsInDB(f.Object.Table, map[string]string{
+	data, err := f.App.ReadObjectsInDB(f.Object.Table, map[string]string{
 		f.Id_file: id,
 	})
 	if err != nil {
@@ -45,21 +43,17 @@ func (f File) GetFilePathByID(params map[string]string) (file_path, file_area st
 
 func (f File) Read(u *model.User, params ...map[string]string) ([]map[string]string, error) {
 
-	// var file_data string
-	// if f.AddBinaryInReadResponse {
-	// 	file_data = "," + f.File_data
-	// }
-	fmt.Println("parámetros leer recibidos:", params)
+	// fmt.Println("file: parámetros lectura recibidos:", params)
 
 	// for _, v := range params {
-	// 	v["SELECT"] = f.Id_file + ","+ f.Module_name + "," + f.Folder_id + "," + f.Description + file_data
+	// 	v["SELECT"] = f.Id_file + ","+ f.Folder_id + "," + f.Description
 	// }
 
-	data, err := f.db.ReadObjectsInDB(f.Object.Table, params...)
+	data, err := f.App.ReadObjectsInDB(f.Object.Table, params...)
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println("data devuelta:", data)
+	// fmt.Println("data devuelta:", data)
 
 	return data, nil
 }

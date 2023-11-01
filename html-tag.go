@@ -1,7 +1,5 @@
 package fileinput
 
-import "github.com/cdvelop/strings"
-
 func (f File) HtmlTag(id, field_name string, allow_skip_completed bool) string {
 
 	var disabled string
@@ -13,7 +11,7 @@ func (f File) HtmlTag(id, field_name string, allow_skip_completed bool) string {
 	tags += `<span class="modal-capture">
 	<button id="` + id + `" type="button" name="capture" onclick="openCapture(this)"` + disabled + `><svg aria-hidden="true" focusable="false" class="form-btn"><use xlink:href="#icon-camera"/></svg></button>`
 
-	tags += `<div class="video-container video-hidden"><video title="toca el video para tomar una captura" onclick="takePicture(this)" id="video_capture">Video stream no disponible en este dispositivo.</video></div>`
+	tags += `<div class="video-container video-hidden"><video data-width="` + f.ImagenWidth + `" data-height="` + f.ImagenHeight + `" title="toca el video para tomar una captura" onclick="takePicture(this)" id="video_capture">Video stream no disponible en este dispositivo.</video></div>`
 
 	// tags += `<div class="output"><img id="photo_capture" alt="The screen capture in this box."/></div>`
 
@@ -43,22 +41,19 @@ func (f File) HtmlTag(id, field_name string, allow_skip_completed bool) string {
 	tags += `<button type="button" name="next_img" onclick="moveScrollFileImg(this)"><i class="arrow right"></i></button>`
 
 	tags += `</fieldset>`
+
+	tags += `<canvas name="canvas" style="display: none;"> </canvas>`
 	// tags += `<input type="hidden"  oninput="changeDataFile()"/>`
+
 	tags += `</div>`
 
 	return tags
 }
 
-func buildTag(data []string) (html string) {
-	for _, id := range data {
-		if id != "" {
-			html += `<div name="file_img"><img src="file?id=` + id + `"></div>`
-		}
+func (f File) BuildNewView(new_data []map[string]string) (html string) {
+	for _, data := range new_data {
+		html += `<div name="file_img"><img src="file?id=` + data[f.Id_file] + `"></div>`
 	}
-	return
-}
 
-func (f File) BuildNewView(values string) (html string) {
-	data := strings.Split(values, ",")
-	return buildTag(data)
+	return
 }

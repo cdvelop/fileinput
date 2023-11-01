@@ -7,7 +7,6 @@ func (f File) RegisterNewFile(new *model.FileNewToStore, form_data map[string]st
 	form_data[f.Id_file] = new.FileNameOnDisk
 	form_data[f.File_area] = new.FileArea
 	form_data[f.Extension] = new.Extension
-	form_data[f.File_data] = string(new.BlobData)
 
 	// cortar el nombre del archivo para eliminar la extensión antes de almacenarlo
 	if len(new.DescriptionInputName) > 5 {
@@ -17,7 +16,7 @@ func (f File) RegisterNewFile(new *model.FileNewToStore, form_data map[string]st
 	// borramos el campo files
 	delete(form_data, f.Files)
 
-	err := f.db.CreateObjectsInDB(f.Object.Table, form_data)
+	err := f.App.CreateObjectsInDB(f.Object.Table, false, form_data)
 	if err != nil {
 		return nil, err
 	}
@@ -29,5 +28,5 @@ func (f File) RegisterNewFile(new *model.FileNewToStore, form_data map[string]st
 }
 
 func (f File) GenerateFileNameOnDisk() string {
-	return f.db.GetNewID()
+	return f.App.GetNewID()
 }

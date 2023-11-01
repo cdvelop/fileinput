@@ -11,7 +11,7 @@ func (f File) Delete(u *model.User, params ...map[string]string) ([]map[string]s
 
 	// fmt.Println("parámetros Delete recibidos:", params)
 
-	recover_data, err := f.db.DeleteObjectsInDB(f.Object.Table, params...)
+	recover_data, err := f.App.DeleteObjectsInDB(f.Object.Table, params...)
 	if err != nil {
 		return nil, err
 	}
