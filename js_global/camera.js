@@ -6,6 +6,8 @@ function Camera(form) {
     const canvas = container_files.querySelector('canvas[name="canvas"')
     const span = container_files.querySelector('span.modal-capture')
 
+    const object_name = container_files.querySelector('[name="files"]').dataset.id;
+
     const video_cont = form.querySelector('.video-container')
 
     let video = form.querySelector('#video_capture');
@@ -66,20 +68,26 @@ function Camera(form) {
         return camera_is_closed;
     }
 
+    const previous_img = container_files.querySelector('[name="previous_img"]')
+    function showNewPicture() {
+        moveScrollFileImg(previous_img)
+    }
+
     // photo default config
     canvas.width = parseInt(video.dataset.width);
     canvas.height = parseInt(video.dataset.height);
 
     const object_id = getObjectIdFromForm(form)
 
-
     return {
         Enable: enableCameraCapture,
         Disable: disableCameraCapture,
+        ObjectName:object_name,
         ObjectID: object_id,
         FormName: formName,
         IsClosed: isCameraClosed,
         Canvas: canvas,
-        Video:video
+        Video:video,
+        ShowNewPicture:showNewPicture
     };
 }

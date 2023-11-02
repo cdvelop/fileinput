@@ -29,7 +29,7 @@ function imgFileSelected(e) {
 
 
 function getFileId(img) {
-    let srcValue = img.getAttribute('src');
-    let parts = srcValue.split('=');
-    return parts[1];
+    // let srcValue = img.getAttribute('src');
+    // let parts = srcValue.split('=');
+    return img.dataset.id;
 }

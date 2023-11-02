@@ -132,3 +132,7 @@ func New(o *model.Object, db model.DataBaseAdapter, c model.FileConfig, h *model
 func (f File) ConfigFile() *model.FileConfig {
 	return &f.FileConfig
 }
+
+func (f File) ViewHandlerName() string {
+	return "FileInput"
+}

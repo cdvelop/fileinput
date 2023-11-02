@@ -9,7 +9,7 @@ func (f *File) Input() *model.Input {
 	return &model.Input{
 		InputName:  "file",
 		Tag:        f,
-		InputView:  f,
+		ItemView:   f,
 		InputReset: f,
 		Validate:   nil,
 		TestData:   nil,

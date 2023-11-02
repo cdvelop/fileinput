@@ -1,9 +1,6 @@
 package fileinput
 
 import (
-	"fmt"
-	"os"
-
 	"github.com/cdvelop/model"
 )
 
@@ -23,9 +20,9 @@ func (f File) Delete(u *model.User, params ...map[string]string) ([]map[string]s
 		file_path := f.BuildFilePath(data)
 
 		// Borrar archivos desde hdd
-		err := os.Remove(file_path)
+		err := f.App.DeleteFile(file_path)
 		if err != nil {
-			return nil, fmt.Errorf("archivo %s fue eliminado de la db pero no del hdd %s", data[f.Field_name], err)
+			return nil, model.Error("archivo", data[f.Field_name], "fue eliminado de la db pero no del hdd", err)
 		}
 	}
 

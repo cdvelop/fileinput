@@ -1,6 +1,6 @@
 package fileinput
 
-func (f File) HtmlTag(id, field_name string, allow_skip_completed bool) string {
+func (f File) BuildContainerView(id, field_name string, allow_skip_completed bool) string {
 
 	var disabled string
 	if !f.DefaultEnableInput {
@@ -50,9 +50,21 @@ func (f File) HtmlTag(id, field_name string, allow_skip_completed bool) string {
 	return tags
 }
 
-func (f File) BuildNewView(new_data []map[string]string) (html string) {
-	for _, data := range new_data {
-		html += `<div name="file_img"><img src="file?id=` + data[f.Id_file] + `"></div>`
+func (f File) BuildItemView(all_data ...map[string]string) (html string) {
+
+	for _, data := range all_data {
+
+		if id, ok := data[f.Id_file]; ok {
+
+			src := `file?id=` + id
+			if url, exist := data["url"]; exist {
+				// f.App.Log("url file:", url)
+				src = url
+			}
+
+			html += `<div name="file_img"><img src="` + src + `" data-id="` + id + `"></div>`
+
+		}
 	}
 
 	return
