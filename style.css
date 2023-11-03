@@ -57,7 +57,7 @@ div[name="file_img"] img {
 }
 
 div[name="file_img"]:hover {
-    cursor: pointer;
+    /* cursor: pointer; */
     /* filter: sepia(100%); */
     /* transform: scale(.97); */
     background-color: var(--col-hover);

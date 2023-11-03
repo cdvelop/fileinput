@@ -27,7 +27,7 @@ func (f File) BuildContainerView(id, field_name string, allow_skip_completed boo
 	<legend class="basic-legend"><label for="` + id + `">` + f.Legend + `</label></legend>`
 
 	tags += `<button type="button" name="previous_img" onclick="moveScrollFileImg(this)"><i class="arrow left"></i></button>`
-	tags += `<div data-id="` + f.Object.Name + `" name="` + field_name + `" class="scroll-file_img" >`
+	tags += `<div data-id="` + f.Object.Name + `" name="` + field_name + `" class="scroll-file_img" onmousedown="deleteFileON(event)" onmouseup="deleteFileOFF(event)" onclick="imgFileSelected(event)">`
 
 	// tags += `<div data-id="` + f.Object.Name + `" name="` + field_name + `" class="scroll-file_img" onclick="imgFileSelected(event)">`
 
@@ -45,7 +45,6 @@ func (f File) BuildContainerView(id, field_name string, allow_skip_completed boo
 	tags += `</fieldset>`
 
 	tags += `<canvas name="canvas" style="display: none;"> </canvas>`
-	// tags += `<input type="hidden"  oninput="changeDataFile()"/>`
 
 	tags += `</div>`
 
@@ -64,7 +63,7 @@ func (f File) BuildItemView(all_data ...map[string]string) (html string) {
 				src = url
 			}
 
-			html += `<div name="file_img" onmousedown="startTimer(event)" onmouseup="clearTimer(event)">
+			html += `<div name="file_img">
 			<div class="delete-tab"></div>
 			<img src="` + src + `" data-id="` + id + `"></div>`
 
