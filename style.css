@@ -37,9 +37,12 @@
 }
 
 div[name="file_img"] {
+    position: relative;
     display: inline-block;
     margin: 2px 5px 0px 2px;
     transition: 0.3s all ease;
+
+    overflow: hidden; /* Oculta el contenido que se desborda */
 }
 
 div[name="file_img"] img {
