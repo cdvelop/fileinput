@@ -24,16 +24,17 @@
     overflow-y: hidden;
     overflow-x: scroll;
     white-space: nowrap;
-    scroll-snap-type: x mandatory;
+    /* scroll-snap-type: x mandatory; */
 
     z-index: 1;
 
     /* display: flex; */
     /* align-items: center; */
+    scroll-behavior: auto;
 }
 
 .scroll-file_img div[name="file_img"] img {
-    scroll-snap-align: start;
+    /* scroll-snap-align: start; */
 }
 
 div[name="file_img"] {

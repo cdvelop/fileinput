@@ -1,30 +1,29 @@
 
-function imgFileSelected(e) {
-    e.stopPropagation();
+function imgFileSelected(target) {
     // console.log("**EVENTO: imgFileSelected",e)
-    const tagname = e.target.tagName.toLowerCase()
-    if (tagname === "img") {
-        // console.log("prev", e.target, "tagname:", tagname)
-        // console.log("show_img:", e.target.show_img)
+    // const tagname = target.tagName.toLowerCase()
+    // if (tagname === "img") {
+    // console.log("prev", e.target, "tagname:", tagname)
+    // console.log("show_img:", e.target.show_img)
 
-        // console.log(e.target);
+    // console.log(e.target);
 
-        let id = getFileId(e.target)
+    // let id = getFileId(target)
 
-        // console.log("id imagen:", id)
-        // Obtiene una referencia al elemento con el ID "modal-container"
-        // let modal = document.getElementById('modal-window');
+    // console.log("id imagen:", id)
+    // Obtiene una referencia al elemento con el ID "modal-container"
+    // let modal = document.getElementById('modal-window');
 
-        // Clona la imagen seleccionada
-        let clonedImage = e.target.cloneNode(true);
-        clonedImage.classList.add('full-screen-img');
+    // Clona la imagen seleccionada
+    let clonedImage = target.cloneNode(true);
+    clonedImage.classList.add('full-screen-img');
 
-        ShowModal(true, clonedImage)
+    ShowModal(true, clonedImage)
 
-        // modal.style.display = 'block';
-        // Usa scrollIntoView para desplazarte al elemento
-        //   modal.scrollIntoView({ behavior: 'smooth' }); // 'smooth' proporciona un desplazamiento suave
-    }
+    // modal.style.display = 'block';
+    // Usa scrollIntoView para desplazarte al elemento
+    //   modal.scrollIntoView({ behavior: 'smooth' }); // 'smooth' proporciona un desplazamiento suave
+    // }
 }
 
 
@@ -34,28 +33,17 @@ function getFileId(img) {
     return img.dataset.id;
 }
 
-function deleteFileON(e) {
+function targetFileHandler(e) {
     e.stopPropagation();
     // console.log("**EVENTO: deleteFileON",e)
     const tagname = e.target.tagName.toLowerCase()
     if (tagname === "img") {
         // console.log("tagname", tagname)
         // console.log("deleteFileON", e.target)
-        startDeleteTimer(e.target, deleteFileHandler)
+        targetHandler(e.target, imgFileSelected, deleteFileHandler)
     }
 }
 
-function deleteFileOFF(e) {
-    e.stopPropagation();
-    // console.log("**EVENTO: deleteFileOFF",e)
-    // e.stopPropagation()
-    const tagname = e.target.tagName.toLowerCase()
-    if (tagname === "img") {
-        // console.log("tagname", tagname)
-        // console.log("deleteFileOFF", e.target)
-        clearDeleteTimer(e.target)
-    }
-}
 
 function deleteFileHandler(target) {
 
