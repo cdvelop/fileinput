@@ -10,7 +10,7 @@ require (
 
 require (
 	github.com/cdvelop/input v0.0.43
-	github.com/cdvelop/model v0.0.64
+	github.com/cdvelop/model v0.0.65
 	github.com/cdvelop/object v0.0.15
 	github.com/cdvelop/unixid v0.0.9
 )

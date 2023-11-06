@@ -6,11 +6,13 @@ function openCapture(t) {
         const container = span.parentNode;
         const form = container.parentNode;
 
-
+        const current_id = getObjectIdFromForm(form)
+        
         if (camera === undefined) {
             camera = Camera(form);
-        } else if (camera.FormName() != form.name) {
+        } else if (camera.ObjectID != current_id) {
             camera = Camera(form);
+            // console.log("NUEVA CÁMARA IDS DIFERENTES")
         }
 
         if (camera.IsClosed()) {

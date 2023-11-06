@@ -1,29 +1,12 @@
 
 function imgFileSelected(target) {
-    // console.log("**EVENTO: imgFileSelected",e)
-    // const tagname = target.tagName.toLowerCase()
-    // if (tagname === "img") {
-    // console.log("prev", e.target, "tagname:", tagname)
-    // console.log("show_img:", e.target.show_img)
-
-    // console.log(e.target);
-
-    // let id = getFileId(target)
-
-    // console.log("id imagen:", id)
-    // Obtiene una referencia al elemento con el ID "modal-container"
-    // let modal = document.getElementById('modal-window');
-
     // Clona la imagen seleccionada
-    let clonedImage = target.cloneNode(true);
+    const clonedImage = target.querySelector('img').cloneNode(true)
+    // console.log("IMG:",clonedImage);
+
     clonedImage.classList.add('full-screen-img');
 
     ShowModal(true, clonedImage)
-
-    // modal.style.display = 'block';
-    // Usa scrollIntoView para desplazarte al elemento
-    //   modal.scrollIntoView({ behavior: 'smooth' }); // 'smooth' proporciona un desplazamiento suave
-    // }
 }
 
 
@@ -35,12 +18,14 @@ function getFileId(img) {
 
 function targetFileHandler(e) {
     e.stopPropagation();
-    // console.log("**EVENTO: deleteFileON",e)
     const tagname = e.target.tagName.toLowerCase()
+    // console.log("**EVENTO: targetFileHandler",e.target)
     if (tagname === "img") {
-        // console.log("tagname", tagname)
+        const target = e.target.parentNode;
+        // console.log("targetFileHandler", target)
         // console.log("deleteFileON", e.target)
-        targetHandler(e.target, imgFileSelected, deleteFileHandler)
+        targetHandler(target, imgFileSelected, deleteFileHandler)
+    
     }
 }
 
@@ -49,11 +34,12 @@ function deleteFileHandler(target) {
 
     console.log('BORRAR ELEMENTO:', target);
 
-    const obj_name = target.parentNode.parentNode.dataset.id;
+    const obj_name = target.parentNode.dataset.id;
     console.log('obj_name ', obj_name);
-
 
     // const img = target.querySelector('img')
     // Realiza la acción deseada cuando el usuario mantiene presionado el botón durante 5 segundos.
     console.log('ID', target.dataset.id);
+
+    deleteObject(obj_name,target.dataset.id);
 }

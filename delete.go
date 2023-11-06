@@ -1,19 +1,28 @@
 package fileinput
 
 import (
+	"fmt"
+
 	"github.com/cdvelop/model"
 )
 
 func (f File) Delete(u *model.User, params ...map[string]string) ([]map[string]string, error) {
 
 	// fmt.Println("parámetros Delete recibidos:", params)
-
-	recover_data, err := f.App.DeleteObjectsInDB(f.Object.Table, params...)
+	recover_data, err := f.App.ReadObjectsInDB(f.Object.Table, params...)
 	if err != nil {
 		return nil, err
 	}
 
-	// fmt.Println("DATA RECOBRADA DESPUÉS DE BORRAR: ", recover_data)
+	err = f.App.DeleteObjectsInDB(f.Object.Table, params...)
+	if err != nil {
+		return nil, err
+	}
+
+	fmt.Println("DATA RECOBRADA DESPUÉS DE BORRAR: ", recover_data)
+	if len(recover_data) == 0 {
+		return nil, model.Error("el archivo ya no existe en la base de datos")
+	}
 
 	for _, data := range recover_data {
 
@@ -26,5 +35,18 @@ func (f File) Delete(u *model.User, params ...map[string]string) ([]map[string]s
 		}
 	}
 
+	fmt.Println("DATA RECOBRADA DESPUÉS DE BORRAR: ", recover_data)
+
 	return recover_data, nil
+}
+
+func (f File) SetObjectInDomAfterDelete(data ...map[string]string) error {
+
+	f.App.Log("SET DOM DESPUÉS DE ELIMINAR OBJETO EN DB")
+
+	for _, data := range data {
+		f.App.Log("data:", data)
+	}
+
+	return nil
 }
