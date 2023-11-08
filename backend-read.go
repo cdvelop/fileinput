@@ -1,8 +1,6 @@
 package fileinput
 
 import (
-	"fmt"
-
 	"github.com/cdvelop/model"
 )
 
@@ -24,7 +22,7 @@ func (f File) AddBootFiles(u *model.User, out *[]model.Response, from_data ...ma
 	if len(our_files) >= 1 {
 		*out = append(*out, f.Object.Response(our_files))
 	}
-	fmt.Println("ARCHIVOS LEÍDOS:", len(our_files))
+	// fmt.Println("ARCHIVOS LEÍDOS:", len(our_files))
 
 	return nil
 }
