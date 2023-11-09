@@ -1,4 +1,4 @@
 github.com/cdvelop/timeserver v0.0.5 h1:J7l0lepGX7KNWzy2M0pKdEAAUYijULhqteh9PR14TVA=
 github.com/cdvelop/timeserver v0.0.5/go.mod h1:9USl2nrkenXuih4XKiZqOf25ObT3MMgtqhGgMKjHVLI=
-github.com/cdvelop/timetools v0.0.9 h1:QgibYu0HH19MBycVj8yDumvW/jZ5kimekiodv9qgFwI=
-github.com/cdvelop/timetools v0.0.9/go.mod h1:RwKMHg37rbsOFORt6vpXwbWU9AtAnkoen5Iy+mInN4o=
+github.com/cdvelop/timetools v0.0.16 h1:YTMm2I2EAzsoEY2e0NwJbx2x/rBjMXISx1IYXGelKQg=
+github.com/cdvelop/timetools v0.0.16/go.mod h1:rEDnjpEKbR50aOTm1YQK2ZzB4nlhwTiLpWJu1+Ey7Eo=
