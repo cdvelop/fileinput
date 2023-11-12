@@ -1,6 +1,7 @@
 package fileinput
 
 import (
+	"github.com/cdvelop/filehandler"
 	"github.com/cdvelop/input"
 	"github.com/cdvelop/model"
 	"github.com/cdvelop/object"
@@ -13,16 +14,8 @@ import (
 // root_folder:static_files default "app_files"
 // max_files:1, 4, 6.. default 6
 // max_kb_size:100, 400 default 50
-var TableFile *model.FileTable
 
-func New(h *model.Handlers, o *model.Object, c model.FileSetting) (*FileInput, error) {
-
-	if TableFile == nil {
-		TableFile = &model.FileTable{}
-		if err := object.SetFieldsStructToSameName(TableFile); err != nil {
-			return nil, err
-		}
-	}
+func NewUploadFileApi(h *model.Handlers, o *model.Object, s filehandler.FileSetting) (*FileInput, error) {
 
 	f := FileInput{}
 
@@ -40,10 +33,14 @@ func New(h *model.Handlers, o *model.Object, c model.FileSetting) (*FileInput, e
 		return nil, err
 	}
 
-	f.source = o // asignamos el objeto origen
+	fileHandler, err := filehandler.Add(h.FileRootFolder, h, h)
+	if err != nil {
+		return nil, err
+	}
+	f.FileHandler = fileHandler
 
 	// configuración por defecto file
-	f.FileSetting = model.FileSetting{
+	new_file := filehandler.FileSetting{
 		MaximumFilesAllowed: 6,
 		InputNameWithFiles:  f.Files,
 		MaximumFileSize:     0,
@@ -52,73 +49,59 @@ func New(h *model.Handlers, o *model.Object, c model.FileSetting) (*FileInput, e
 		ImagenWidth:         "800",
 		ImagenHeight:        "600",
 
-		RootFolder: "app_files",
-		FileType:   "i",
+		FileType: "i",
 
 		FieldNameWithObjectID: o.PrimaryKeyName(),
-		Name:                  c.Name,
+		Name:                  s.Name,
 		Legend:                "Imágenes",
 
-		FileTable: TableFile,
+		Source: o, // asignamos el objeto origen
 	}
 
-	if f.Name == "" {
+	if new_file.Name == "" {
 		return nil, model.Error(`fileinput error FileSetting.Name:"nombre_campo" no ingresado`)
 	}
 
-	f.DefaultEnableInput = c.DefaultEnableInput
+	new_file.DefaultEnableInput = s.DefaultEnableInput
 
-	if c.RootFolder != "" {
-		f.RootFolder = c.RootFolder
+	if s.ImagenWidth != "" {
+		new_file.ImagenWidth = s.ImagenWidth
 	}
 
-	if c.ImagenWidth != "" {
-		f.ImagenWidth = c.ImagenWidth
+	if s.ImagenHeight != "" {
+		new_file.ImagenHeight = s.ImagenHeight
 	}
 
-	if c.ImagenHeight != "" {
-		f.ImagenHeight = c.ImagenHeight
-	}
+	if s.FileType != "" {
+		new_file.FileType = s.FileType
 
-	if c.FileType != "" {
-		f.FileSetting.FileType = c.FileType
-
-		switch c.FileType {
+		switch s.FileType {
 		case "video":
-			f.Legend = "Videos"
-			f.FileSetting.AllowedExtensions = ".avi, .mkv, .mp4"
-			f.FileType = "v"
+			new_file.Legend = "Videos"
+			new_file.AllowedExtensions = ".avi, .mkv, .mp4"
+			new_file.FileType = "v"
 		case "document":
-			f.Legend = "Documentos"
-			f.FileSetting.AllowedExtensions = ".doc, .xlsx, .txt"
-			f.FileType = "d"
+			new_file.Legend = "Documentos"
+			new_file.AllowedExtensions = ".doc, .xlsx, .txt"
+			new_file.FileType = "d"
 		case "pdf":
-			f.Legend = "Documentos PDF"
-			f.FileSetting.AllowedExtensions = ".pdf"
-			f.FileType = "p"
-		}
-
-	}
-
-	if c.MaximumFilesAllowed != f.MaximumFilesAllowed {
-		f.MaximumFilesAllowed = c.MaximumFilesAllowed
-	}
-
-	if c.MaximumKbSize != f.FileSetting.MaximumKbSize {
-		f.FileSetting.MaximumKbSize = c.MaximumKbSize
-	}
-
-	f.Object.Name += "." + f.FileSetting.Name
-
-	f.FileSetting.MaximumFileSize = int64(float64(f.FileSetting.MaximumFilesAllowed*f.FileSetting.MaximumKbSize*1024) * 1.05)
-
-	if !f.App.RunOnClientDB() { // verificamos la base de datos solo si estamos en el servidor
-		err = h.CreateTablesInDB([]*model.Object{f.Object}, nil)
-		// fmt.Println("ESTAMOS EN SERVIDOR CREAMOS TABLA ", f.Object.Table, " EN DB CON ERROR", err)
-		if err != nil {
-			return nil, err
+			new_file.Legend = "Documentos PDF"
+			new_file.AllowedExtensions = ".pdf"
+			new_file.FileType = "p"
 		}
 	}
+
+	if s.MaximumFilesAllowed != new_file.MaximumFilesAllowed {
+		new_file.MaximumFilesAllowed = s.MaximumFilesAllowed
+	}
+
+	if s.MaximumKbSize != new_file.MaximumKbSize {
+		new_file.MaximumKbSize = s.MaximumKbSize
+	}
+
+	f.Object.Name += "." + new_file.Name
+
+	new_file.MaximumFileSize = int64(float64(new_file.MaximumFilesAllowed*new_file.MaximumKbSize*1024) * 1.05)
 
 	//nota: al no declarar punteros se pierden posteriormente
 
@@ -134,7 +117,7 @@ func New(h *model.Handlers, o *model.Object, c model.FileSetting) (*FileInput, e
 		NotRequiredInDB:       true,
 	})
 
-	h.AddNewFileSetting(f.Object, f.FileSetting)
+	f.FileHandler.AddNewFileSetting(f.Object, f.FileSetting)
 
 	return &f, nil
 

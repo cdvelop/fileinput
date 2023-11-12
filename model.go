@@ -1,6 +1,7 @@
 package fileinput
 
 import (
+	"github.com/cdvelop/filehandler"
 	"github.com/cdvelop/model"
 )
 
@@ -11,8 +12,7 @@ type FileInput struct {
 
 	App *model.Handlers
 
-	model.FileSetting
+	*filehandler.FileHandler
 
-	source *model.Object // objeto origen
-
+	*filehandler.FileSetting
 }

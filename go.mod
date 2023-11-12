@@ -9,6 +9,7 @@ require (
 )
 
 require (
+	github.com/cdvelop/filehandler v0.0.3
 	github.com/cdvelop/input v0.0.50
 	github.com/cdvelop/model v0.0.67
 	github.com/cdvelop/object v0.0.25
@@ -16,6 +17,8 @@ require (
 )
 
 replace github.com/cdvelop/model => ../model
+
+replace github.com/cdvelop/filehandler => ../filehandler
 
 replace github.com/cdvelop/object => ../object
 

@@ -1,6 +1,7 @@
 package fileinput
 
 func (f FileInput) ResetInput() {
+
 	f.callJsFunc("resetInputFile", f.DefaultEnableInput)
 }
 
