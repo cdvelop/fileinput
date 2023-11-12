@@ -6,7 +6,7 @@ import (
 	"github.com/cdvelop/model"
 )
 
-func (f File) Delete(u *model.User, params ...map[string]string) ([]map[string]string, error) {
+func (f FileInput) Delete(u *model.User, params ...map[string]string) ([]map[string]string, error) {
 
 	// fmt.Println("parámetros Delete recibidos:", params)
 	recover_data, err := f.App.ReadObjectsInDB(f.Object.Table, params...)
@@ -29,7 +29,7 @@ func (f File) Delete(u *model.User, params ...map[string]string) ([]map[string]s
 		file_path := f.BuildFilePath(data)
 
 		// Borrar archivos desde hdd
-		err := f.App.DeleteFile(file_path)
+		err := f.App.FileDelete(file_path)
 		if err != nil {
 			return nil, model.Error("archivo", data[f.Field_name], "fue eliminado de la db pero no del hdd", err)
 		}
@@ -40,7 +40,7 @@ func (f File) Delete(u *model.User, params ...map[string]string) ([]map[string]s
 	return recover_data, nil
 }
 
-func (f File) SetObjectInDomAfterDelete(data ...map[string]string) error {
+func (f FileInput) SetObjectInDomAfterDelete(data ...map[string]string) error {
 
 	f.App.Log("SET DOM DESPUÉS DE ELIMINAR OBJETO EN DB")
 

@@ -1,6 +1,6 @@
 package fileinput
 
-func (f File) CameraTurn(on bool) {
+func (f FileInput) CameraTurn(on bool) {
 	var turn = "on"
 
 	if !on {

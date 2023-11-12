@@ -4,7 +4,7 @@ import (
 	"github.com/cdvelop/model"
 )
 
-func (f *File) Input() *model.Input {
+func (f *FileInput) Input() *model.Input {
 
 	return &model.Input{
 		InputName:  "file",
@@ -16,7 +16,7 @@ func (f *File) Input() *model.Input {
 	}
 }
 
-func (File) HtmlName() string {
+func (FileInput) HtmlName() string {
 	return "file"
 }
 

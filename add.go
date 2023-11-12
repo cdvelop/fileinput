@@ -13,9 +13,18 @@ import (
 // root_folder:static_files default "app_files"
 // max_files:1, 4, 6.. default 6
 // max_kb_size:100, 400 default 50
-func New(o *model.Object, db model.DataBaseAdapter, c model.FileConfig, h *model.Handlers) (*File, error) {
+var TableFile *model.FileTable
 
-	f := File{}
+func New(h *model.Handlers, o *model.Object, c model.FileSetting) (*FileInput, error) {
+
+	if TableFile == nil {
+		TableFile = &model.FileTable{}
+		if err := object.SetFieldsStructToSameName(TableFile); err != nil {
+			return nil, err
+		}
+	}
+
+	f := FileInput{}
 
 	input_id := unixid.InputPK()
 
@@ -31,11 +40,10 @@ func New(o *model.Object, db model.DataBaseAdapter, c model.FileConfig, h *model
 		return nil, err
 	}
 
-	f.source = o          // asignamos el objeto origen
-	f.input_id = input_id // asignamos input id para verificaciones en lectura
+	f.source = o // asignamos el objeto origen
 
 	// configuración por defecto file
-	f.FileConfig = model.FileConfig{
+	f.FileSetting = model.FileSetting{
 		MaximumFilesAllowed: 6,
 		InputNameWithFiles:  f.Files,
 		MaximumFileSize:     0,
@@ -47,15 +55,15 @@ func New(o *model.Object, db model.DataBaseAdapter, c model.FileConfig, h *model
 		RootFolder: "app_files",
 		FileType:   "i",
 
-		SavedAsBlobInDb: c.SavedAsBlobInDb,
-
 		FieldNameWithObjectID: o.PrimaryKeyName(),
 		Name:                  c.Name,
 		Legend:                "Imágenes",
+
+		FileTable: TableFile,
 	}
 
 	if f.Name == "" {
-		return nil, model.Error(`fileinput error FileConfig.Name:"nombre_campo" no ingresado`)
+		return nil, model.Error(`fileinput error FileSetting.Name:"nombre_campo" no ingresado`)
 	}
 
 	f.DefaultEnableInput = c.DefaultEnableInput
@@ -73,20 +81,20 @@ func New(o *model.Object, db model.DataBaseAdapter, c model.FileConfig, h *model
 	}
 
 	if c.FileType != "" {
-		f.FileConfig.FileType = c.FileType
+		f.FileSetting.FileType = c.FileType
 
 		switch c.FileType {
 		case "video":
 			f.Legend = "Videos"
-			f.FileConfig.AllowedExtensions = ".avi, .mkv, .mp4"
+			f.FileSetting.AllowedExtensions = ".avi, .mkv, .mp4"
 			f.FileType = "v"
 		case "document":
 			f.Legend = "Documentos"
-			f.FileConfig.AllowedExtensions = ".doc, .xlsx, .txt"
+			f.FileSetting.AllowedExtensions = ".doc, .xlsx, .txt"
 			f.FileType = "d"
 		case "pdf":
 			f.Legend = "Documentos PDF"
-			f.FileConfig.AllowedExtensions = ".pdf"
+			f.FileSetting.AllowedExtensions = ".pdf"
 			f.FileType = "p"
 		}
 
@@ -96,16 +104,16 @@ func New(o *model.Object, db model.DataBaseAdapter, c model.FileConfig, h *model
 		f.MaximumFilesAllowed = c.MaximumFilesAllowed
 	}
 
-	if c.MaximumKbSize != f.FileConfig.MaximumKbSize {
-		f.FileConfig.MaximumKbSize = c.MaximumKbSize
+	if c.MaximumKbSize != f.FileSetting.MaximumKbSize {
+		f.FileSetting.MaximumKbSize = c.MaximumKbSize
 	}
 
-	f.Object.Name += "." + f.FileConfig.Name
+	f.Object.Name += "." + f.FileSetting.Name
 
-	f.FileConfig.MaximumFileSize = int64(float64(f.FileConfig.MaximumFilesAllowed*f.FileConfig.MaximumKbSize*1024) * 1.05)
+	f.FileSetting.MaximumFileSize = int64(float64(f.FileSetting.MaximumFilesAllowed*f.FileSetting.MaximumKbSize*1024) * 1.05)
 
 	if !f.App.RunOnClientDB() { // verificamos la base de datos solo si estamos en el servidor
-		err = db.CreateTablesInDB([]*model.Object{f.Object}, nil)
+		err = h.CreateTablesInDB([]*model.Object{f.Object}, nil)
 		// fmt.Println("ESTAMOS EN SERVIDOR CREAMOS TABLA ", f.Object.Table, " EN DB CON ERROR", err)
 		if err != nil {
 			return nil, err
@@ -126,13 +134,12 @@ func New(o *model.Object, db model.DataBaseAdapter, c model.FileConfig, h *model
 		NotRequiredInDB:       true,
 	})
 
+	h.AddNewFileSetting(f.Object, f.FileSetting)
+
 	return &f, nil
+
 }
 
-func (f File) ConfigFile() *model.FileConfig {
-	return &f.FileConfig
-}
-
-func (f File) ViewHandlerName() string {
+func (f FileInput) ViewHandlerName() string {
 	return "FileInput"
 }

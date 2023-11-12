@@ -1,14 +1,14 @@
 package fileinput
 
-func (f File) ResetInput() {
+func (f FileInput) ResetInput() {
 	f.callJsFunc("resetInputFile", f.DefaultEnableInput)
 }
 
-func (f File) InputEnable() {
+func (f FileInput) InputEnable() {
 	f.callJsFunc("enableFileInput", true)
 }
 
-func (f File) callJsFunc(func_name string, enable bool) {
+func (f FileInput) callJsFunc(func_name string, enable bool) {
 
 	err := f.App.CallFunction(func_name, map[string]interface{}{
 		"enable": enable,

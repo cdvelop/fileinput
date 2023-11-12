@@ -1,6 +1,6 @@
 package fileinput
 
-func (f File) BuildContainerView(id, field_name string, allow_skip_completed bool) string {
+func (f FileInput) BuildContainerView(id, field_name string, allow_skip_completed bool) string {
 
 	var disabled string
 	if !f.DefaultEnableInput {
@@ -27,7 +27,7 @@ func (f File) BuildContainerView(id, field_name string, allow_skip_completed boo
 	<legend class="basic-legend"><label for="` + id + `">` + f.Legend + `</label></legend>`
 
 	tags += `<button type="button" name="previous_img" onclick="moveScrollFileImg(this)"><i class="arrow left"></i></button>`
-	tags += `<div data-id="` + f.Object.Name + `" name="` + field_name + `" class="scroll-file_img" onmousedown="targetFileHandler(event)" ontouchstart="targetFileHandler(event)">`
+	tags += `<div data-id="` + f.Object.Name + `" name="` + field_name + `" class="scroll-file_img" onmousedown="targetFileApi(event)" ontouchstart="targetFileApi(event)">`
 
 	// tags += `<div data-id="` + f.Object.Name + `" name="` + field_name + `" class="scroll-file_img" onclick="imgFileSelected(event)">`
 
@@ -51,7 +51,7 @@ func (f File) BuildContainerView(id, field_name string, allow_skip_completed boo
 	return tags
 }
 
-func (f File) BuildItemView(all_data ...map[string]string) (html string) {
+func (f FileInput) BuildItemView(all_data ...map[string]string) (html string) {
 
 	for _, data := range all_data {
 

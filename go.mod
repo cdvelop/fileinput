@@ -11,7 +11,7 @@ require (
 require (
 	github.com/cdvelop/input v0.0.50
 	github.com/cdvelop/model v0.0.67
-	github.com/cdvelop/object v0.0.23
+	github.com/cdvelop/object v0.0.25
 	github.com/cdvelop/unixid v0.0.16
 )
 
