@@ -7,9 +7,9 @@ func (f FileInput) CameraTurn(on bool) {
 		turn = "off"
 	}
 
-	err := f.App.Clicking(f.Object, turn)
+	err := f.Clicking(f.Object, turn)
 	if err != nil {
-		f.App.Log(err)
+		f.Log(err)
 		return
 	}
 

@@ -11,12 +11,12 @@ func (f FileInput) InputEnable() {
 
 func (f FileInput) callJsFunc(func_name string, enable bool) {
 
-	err := f.App.CallFunction(func_name, map[string]interface{}{
+	err := f.CallFunction(func_name, map[string]interface{}{
 		"enable": enable,
-		"query":  f.App.QuerySelectorObject(f.Object.ModuleName, f.Object.Name),
+		"query":  f.QuerySelectorObject(f.Object.ModuleName, f.Object.Name),
 	})
 	if err != nil {
-		f.App.Log(err)
+		f.Log(err)
 	}
 
 }

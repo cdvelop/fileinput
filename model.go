@@ -10,9 +10,12 @@ type FileInput struct {
 
 	Object *model.Object
 
-	App *model.Handlers
+	// App *model.Handlers
 
 	*filehandler.FileHandler
 
 	*filehandler.FileSetting
+
+	model.DomAdapter
+	model.ThemeAdapter
 }
