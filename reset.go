@@ -2,7 +2,7 @@ package fileinput
 
 func (f FileInput) ResetInput() {
 
-	f.callJsFunc("resetInputFile", f.DefaultEnableInput)
+	f.callJsFunc("resetInputFile", f.conf.DefaultEnableInput)
 }
 
 func (f FileInput) InputEnable() {
@@ -11,9 +11,9 @@ func (f FileInput) InputEnable() {
 
 func (f FileInput) callJsFunc(func_name string, enable bool) {
 
-	err := f.CallFunction(func_name, map[string]interface{}{
+	err := f.dom.CallFunction(func_name, map[string]interface{}{
 		"enable": enable,
-		"query":  f.QuerySelectorObject(f.Object.ModuleName, f.Object.Name),
+		"query":  f.theme.QuerySelectorObject(f.Object.ModuleName, f.Object.Name),
 	})
 	if err != nil {
 		f.Log(err)

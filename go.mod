@@ -6,15 +6,15 @@ require (
 	github.com/cdvelop/maps v0.0.1 // indirect
 	github.com/cdvelop/timeserver v0.0.5 // indirect
 	github.com/cdvelop/timetools v0.0.16 // indirect
+	github.com/cdvelop/unixid v0.0.18 // indirect
 )
 
 require (
 	github.com/cdvelop/filehandler v0.0.3
-	github.com/cdvelop/input v0.0.50
+	github.com/cdvelop/input v0.0.52
 	github.com/cdvelop/model v0.0.68
 	github.com/cdvelop/object v0.0.25
-	github.com/cdvelop/strings v0.0.4
-	github.com/cdvelop/unixid v0.0.16
+	github.com/cdvelop/strings v0.0.7
 )
 
 replace github.com/cdvelop/model => ../model

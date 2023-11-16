@@ -6,16 +6,16 @@ import (
 )
 
 type FileInput struct {
-	Files string `Input:"Text" NotRequiredInDB:"true"` //nombre por defecto input html = files
+	// Files string `Input:"Text" NotRequiredInDB:"true"` //nombre por defecto input html = files
 
 	Object *model.Object
 
-	// App *model.Handlers
+	model.Logger
 
-	*filehandler.FileHandler
+	// *filehandler.FileHandler
 
-	*filehandler.FileSetting
+	conf *filehandler.FileSetting
 
-	model.DomAdapter
-	model.ThemeAdapter
+	dom   model.DomAdapter
+	theme model.ThemeAdapter
 }
