@@ -41,15 +41,16 @@ func NewUploadFileApi(h *model.Handlers, o *model.Object, s filehandler.FileSett
 
 	// configuración por defecto file
 	f.conf = &filehandler.FileSetting{
+		AllowedExtensions:     s.AllowedExtensions,
 		MaximumFilesAllowed:   6,
 		MaximumKbSize:         50,
 		ImagenWidth:           "800",
 		ImagenHeight:          "600",
-		FileType:              "imagen",
 		FieldNameWithObjectID: o.PrimaryKeyName(),
+		ModuleName:            o.ModuleName,
 		DescriptiveName:       s.DescriptiveName,
 		Legend:                "Imágenes",
-		Source:                o, // asignamos el objeto origen
+		// source:                o, // asignamos el objeto origen
 	}
 
 	if f.conf.DescriptiveName == "" {
@@ -78,7 +79,9 @@ func NewUploadFileApi(h *model.Handlers, o *model.Object, s filehandler.FileSett
 
 	f.conf.SetMaximumFileSize()
 
-	f.conf.SetAllowedExtensions()
+	if len(f.conf.AllowedExtensions) == 0 {
+		return nil, model.Error("AllowedExtensions error debes ingresar al menos una extension ej: .jpg, .txt")
+	}
 
 	//nota: al no declarar punteros se pierden posteriormente
 
@@ -95,6 +98,13 @@ func NewUploadFileApi(h *model.Handlers, o *model.Object, s filehandler.FileSett
 	})
 
 	handler.AddNewFileSetting(f.Object, f.conf)
+
+	// ASIGNAMOS LOS MANEJADORES API CRUD CORRESPONDIENTES AL OBJETO
+	f.Object.ReadApi = handler
+	f.Object.DeleteApi = handler
+	f.Object.UpdateApi = handler
+	f.Object.AlternativeValidateAdapter = handler
+	// f.Object.
 
 	return &f, nil
 

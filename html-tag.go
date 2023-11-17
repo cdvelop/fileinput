@@ -39,9 +39,9 @@ func (f FileInput) BuildContainerView(id, field_name string, allow_skip_complete
 	// tags += `<div name="file_img"><img src="file?id=2"></div>`
 	// tags += `<div name="file_img"><img src="file?id=3"></div>`
 
-	extensions := strings.Join(f.conf.GetAllowedExtensions(), ",")
+	extensions := strings.Join(f.conf.AllowedExtensions, ",")
 
-	tags += `<input type="file" accept="` + f.conf.FileType + `/,` + extensions + `">`
+	tags += `<input type="file" accept=".` + extensions + `">`
 
 	tags += `</div>`
 
