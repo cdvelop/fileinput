@@ -29,7 +29,7 @@ func (f FileInput) BuildContainerView(id, field_name string, allow_skip_complete
 	<legend class="basic-legend"><label for="` + id + `">` + f.conf.Legend + `</label></legend>`
 
 	tags += `<button type="button" name="previous_img" onclick="moveScrollFileImg(this)"><i class="arrow left"></i></button>`
-	tags += `<div data-id="` + f.Object.Name + `" name="` + field_name + `" class="scroll-file_img" onmousedown="targetFileApi(event)" ontouchstart="targetFileApi(event)">`
+	tags += `<div data-id="` + f.Object.Name + `" name="` + field_name + `" class="scroll-file_img" onmousedown="targetFileHandler(event)" ontouchstart="targetFileHandler(event)">`
 
 	// tags += `<div data-id="` + f.Object.Name + `" name="` + field_name + `" class="scroll-file_img" onclick="imgFileSelected(event)">`
 

@@ -34,7 +34,7 @@ func NewUploadFileApi(h *model.Handlers, o *model.Object, s filehandler.FileSett
 	f.dom = h
 	f.theme = h
 
-	handler, err := filehandler.Add(h, h, h)
+	handler, err := filehandler.Add(h)
 	if err != nil {
 		return nil, err
 	}
@@ -100,6 +100,7 @@ func NewUploadFileApi(h *model.Handlers, o *model.Object, s filehandler.FileSett
 	handler.AddNewFileSetting(f.Object, f.conf)
 
 	// ASIGNAMOS LOS MANEJADORES API CRUD CORRESPONDIENTES AL OBJETO
+	f.Object.Table = handler.Object.Table
 	f.Object.ReadApi = handler
 	f.Object.DeleteApi = handler
 	f.Object.UpdateApi = handler
