@@ -30,6 +30,7 @@ func NewUploadFileApi(h *model.Handlers, o *model.Object, s filehandler.FileSett
 		return nil, err
 	}
 	f.Logger = h.Logger
+	f.Object.NoAddObjectInDB = true
 
 	f.dom = h
 	f.theme = h
@@ -75,7 +76,7 @@ func NewUploadFileApi(h *model.Handlers, o *model.Object, s filehandler.FileSett
 		f.conf.MaximumKbSize = s.MaximumKbSize
 	}
 
-	f.Object.Name = f.conf.DescriptiveName
+	f.Object.ObjectName = f.conf.DescriptiveName
 
 	f.conf.SetMaximumFileSize()
 
