@@ -7,12 +7,12 @@ import (
 func (f FileInput) Input() *model.Input {
 
 	return &model.Input{
-		InputName:  "file",
-		Tag:        f,
-		ItemView:   f,
-		InputReset: f,
-		Validate:   nil,
-		TestData:   nil,
+		InputName:        "file",
+		Tag:              f,
+		ItemViewAdapter:  f,
+		ResetViewAdapter: f,
+		Validate:         nil,
+		TestData:         nil,
 	}
 }
 

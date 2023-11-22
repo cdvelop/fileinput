@@ -1,22 +1,13 @@
 package fileinput
 
-func (f FileInput) ResetInput() {
+func (f FileInput) ResetAdapterView() {
 
-	f.callJsFunc("resetInputFile", f.conf.DefaultEnableInput)
+	f.Log("ResetViewAdapter FileInput", f.Object.ObjectName)
+
+	f.Object.CallJsFunctionObject("resetInputFile", f.conf.DefaultEnableInput)
+
 }
 
 func (f FileInput) InputEnable() {
-	f.callJsFunc("enableFileInput", true)
-}
-
-func (f FileInput) callJsFunc(func_name string, enable bool) {
-
-	err := f.dom.CallFunction(func_name, map[string]interface{}{
-		"enable": enable,
-		"query":  f.theme.QuerySelectorObject(f.Object.ModuleName, f.Object.ObjectName),
-	})
-	if err != nil {
-		f.Log(err)
-	}
-
+	f.Object.CallJsFunctionObject("enableFileInput", true)
 }

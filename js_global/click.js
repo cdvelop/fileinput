@@ -1,6 +1,6 @@
 
 
-function FileInputClicking(module, opt) {
+function FileInputObjectClicking(module, opt) {
     const container = module.querySelector(`.container-files`);
     // console.log("click en:", container)
     if (opt == "on" || opt == "off") {

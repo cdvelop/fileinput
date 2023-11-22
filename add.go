@@ -76,7 +76,8 @@ func NewUploadFileApi(h *model.Handlers, o *model.Object, s filehandler.FileSett
 		f.conf.MaximumKbSize = s.MaximumKbSize
 	}
 
-	f.Object.ObjectName = f.conf.DescriptiveName
+	f.Object.ObjectName = o.ModuleName + ".file." + f.conf.DescriptiveName
+	// f.Object.ObjectName = o.ObjectName+"files" + f.conf.DescriptiveName
 
 	f.conf.SetMaximumFileSize()
 
@@ -86,7 +87,7 @@ func NewUploadFileApi(h *model.Handlers, o *model.Object, s filehandler.FileSett
 
 	//nota: al no declarar punteros se pierden posteriormente
 
-	f.Object.ViewHandler = f
+	f.Object.FrontHandler.ViewAdapter = f
 
 	// agrego el campo input file al objeto para mostrarlo en la vista
 	o.Fields = append(o.Fields, model.Field{
@@ -102,9 +103,9 @@ func NewUploadFileApi(h *model.Handlers, o *model.Object, s filehandler.FileSett
 
 	// ASIGNAMOS LOS MANEJADORES API CRUD CORRESPONDIENTES AL OBJETO
 	f.Object.Table = handler.Object.Table
-	f.Object.ReadApi = handler
-	f.Object.DeleteApi = handler
-	f.Object.UpdateApi = handler
+	f.Object.BackHandler.ReadApi = handler
+	f.Object.BackHandler.DeleteApi = handler
+	f.Object.BackHandler.UpdateApi = handler
 	f.Object.AlternativeValidateAdapter = handler
 	// f.Object.
 
@@ -112,6 +113,6 @@ func NewUploadFileApi(h *model.Handlers, o *model.Object, s filehandler.FileSett
 
 }
 
-func (f FileInput) ViewHandlerName() string {
+func (f FileInput) NameViewAdapter() string {
 	return "FileInput"
 }
