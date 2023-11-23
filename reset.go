@@ -1,13 +1,13 @@
 package fileinput
 
-func (f FileInput) ResetAdapterView() {
+func (f FileInput) ResetAdapterView() (err string) {
 
 	f.Log("ResetViewAdapter FileInput", f.Object.ObjectName)
 
-	f.Object.CallJsFunctionObject("resetInputFile", f.conf.DefaultEnableInput)
+	return f.Object.CallJsFunctionObject("resetInputFile", f.conf.DefaultEnableInput)
 
 }
 
-func (f FileInput) InputEnable() {
-	f.Object.CallJsFunctionObject("enableFileInput", true)
+func (f FileInput) InputEnable() (err string) {
+	return f.Object.CallJsFunctionObject("enableFileInput", true)
 }

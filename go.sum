@@ -1,6 +1,4 @@
-github.com/cdvelop/maps v0.0.1 h1:+CPL+sGiL1nXS8P37Q0HhI8xiM07GoDPL9fTK5Dxxu4=
-github.com/cdvelop/maps v0.0.1/go.mod h1:Bh/wXUGMTIZ19L2jnSlzvs0XhVYPpUUIvyrGISaDy/s=
+github.com/cdvelop/maps v0.0.6 h1:FDXxUTrRiVdZrlHq2PSxcc3iwAdWh7K6fewE0ApSJg8=
+github.com/cdvelop/maps v0.0.6/go.mod h1:h3FC+v1siv6/V7DvlpJ0lLRY1jF8MSvPfp1AU5oqpZc=
 github.com/cdvelop/timeserver v0.0.5 h1:J7l0lepGX7KNWzy2M0pKdEAAUYijULhqteh9PR14TVA=
 github.com/cdvelop/timeserver v0.0.5/go.mod h1:9USl2nrkenXuih4XKiZqOf25ObT3MMgtqhGgMKjHVLI=
-github.com/cdvelop/timetools v0.0.19 h1:RPMQcMIgMDWX4b+1Cq+7LH9jG6QN6vULoRLUMKRJ+IQ=
-github.com/cdvelop/timetools v0.0.19/go.mod h1:svILBZThmFShQv0CqZJJ/avxZ9KiVj6WES/utD7PDAg=

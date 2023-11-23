@@ -14,19 +14,19 @@ import (
 // MaximumFilesAllowed:1, 4, 6.. default 6
 // max_kb_size:100, 400 default 50
 
-func NewUploadFileApi(h *model.Handlers, o *model.Object, s filehandler.FileSetting) (*FileInput, error) {
+func NewUploadFileApi(h *model.Handlers, o *model.Object, s filehandler.FileSetting) (F *FileInput, err string) {
 
 	f := FileInput{}
 
 	// agregar inputs usados en tabla file al modulo
-	err := o.Module.AddInputs([]*model.Input{f.Input(), FileType(), SavedMode(), input.FilePath(), input.TextOnly(), input.Text()}, "fileinput pkg")
-	if err != nil {
+	err = o.Module.AddInputs([]*model.Input{f.Input(), FileType(), SavedMode(), input.FilePath(), input.TextOnly(), input.Text()}, "fileinput pkg")
+	if err != "" {
 		return nil, err
 	}
 
 	// crear objeto file upload
 	err = object.AddToHandlerFromStructs(&f, o.Module, h)
-	if err != nil {
+	if err != "" {
 		return nil, err
 	}
 	f.Logger = h.Logger
@@ -36,7 +36,7 @@ func NewUploadFileApi(h *model.Handlers, o *model.Object, s filehandler.FileSett
 	f.theme = h
 
 	handler, err := filehandler.Add(h)
-	if err != nil {
+	if err != "" {
 		return nil, err
 	}
 
@@ -55,7 +55,7 @@ func NewUploadFileApi(h *model.Handlers, o *model.Object, s filehandler.FileSett
 	}
 
 	if f.conf.DescriptiveName == "" {
-		return nil, model.Error(`fileinput error FileSetting DescriptiveName no ingresado`)
+		return nil, `fileinput error FileSetting DescriptiveName no ingresado`
 	}
 
 	f.conf.DefaultEnableInput = s.DefaultEnableInput
@@ -82,7 +82,7 @@ func NewUploadFileApi(h *model.Handlers, o *model.Object, s filehandler.FileSett
 	f.conf.SetMaximumFileSize()
 
 	if len(f.conf.AllowedExtensions) == 0 {
-		return nil, model.Error("AllowedExtensions error debes ingresar al menos una extension ej: .jpg, .txt")
+		return nil, "AllowedExtensions error debes ingresar al menos una extension ej: .jpg, .txt"
 	}
 
 	//nota: al no declarar punteros se pierden posteriormente
@@ -109,7 +109,7 @@ func NewUploadFileApi(h *model.Handlers, o *model.Object, s filehandler.FileSett
 	f.Object.AlternativeValidateAdapter = handler
 	// f.Object.
 
-	return &f, nil
+	return &f, ""
 
 }
 

@@ -1,6 +1,6 @@
 package fileinput
 
-func (f FileInput) SetObjectInDomAfterDelete(data ...map[string]string) error {
+func (f FileInput) SetObjectInDomAfterDelete(data ...map[string]string) (err string) {
 
 	f.Log("SET DOM DESPUÉS DE ELIMINAR OBJETO EN DB")
 
@@ -8,5 +8,5 @@ func (f FileInput) SetObjectInDomAfterDelete(data ...map[string]string) error {
 		f.Log("data:", data)
 	}
 
-	return nil
+	return ""
 }
