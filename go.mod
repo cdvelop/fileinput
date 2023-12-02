@@ -3,17 +3,17 @@ module github.com/cdvelop/fileinput
 go 1.20
 
 require (
-	github.com/cdvelop/maps v0.0.6 // indirect
+	github.com/cdvelop/maps v0.0.7 // indirect
 	github.com/cdvelop/timeserver v0.0.5 // indirect
-	github.com/cdvelop/timetools v0.0.21 // indirect
-	github.com/cdvelop/unixid v0.0.21 // indirect
+	github.com/cdvelop/timetools v0.0.23 // indirect
+	github.com/cdvelop/unixid v0.0.23 // indirect
 )
 
 require (
-	github.com/cdvelop/filehandler v0.0.8
-	github.com/cdvelop/input v0.0.55
-	github.com/cdvelop/model v0.0.73
-	github.com/cdvelop/object v0.0.34
+	github.com/cdvelop/filehandler v0.0.10
+	github.com/cdvelop/input v0.0.57
+	github.com/cdvelop/model v0.0.74
+	github.com/cdvelop/object v0.0.38
 	github.com/cdvelop/strings v0.0.7
 )
 
