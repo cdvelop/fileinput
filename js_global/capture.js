@@ -1,11 +1,12 @@
 
 let camera;
 function openCapture(t) {
+    
     let span = t.closest('span')
     if (span != undefined) {
         const container = span.parentNode;
-        const form = container.parentNode;
-
+        const form = container.parentNode;        
+        
         const current_id = getObjectIdFromForm(form)
         
         if (camera === undefined) {
@@ -22,6 +23,7 @@ function openCapture(t) {
         }
      
     }
+    
 }
 
 function shiftContainer(form, container, span, state) {

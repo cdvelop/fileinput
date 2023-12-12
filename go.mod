@@ -5,14 +5,14 @@ go 1.20
 require (
 	github.com/cdvelop/maps v0.0.7 // indirect
 	github.com/cdvelop/timetools v0.0.28 // indirect
-	github.com/cdvelop/unixid v0.0.27 // indirect
+	github.com/cdvelop/unixid v0.0.28 // indirect
 )
 
 require (
-	github.com/cdvelop/filehandler v0.0.14
-	github.com/cdvelop/input v0.0.61
-	github.com/cdvelop/model v0.0.78
-	github.com/cdvelop/object v0.0.42
+	github.com/cdvelop/filehandler v0.0.15
+	github.com/cdvelop/input v0.0.62
+	github.com/cdvelop/model v0.0.83
+	github.com/cdvelop/object v0.0.44
 	github.com/cdvelop/strings v0.0.8
 )
 
