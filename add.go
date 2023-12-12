@@ -29,6 +29,13 @@ func NewUploadFileApi(h *model.Handlers, o *model.Object, s filehandler.FileSett
 	if err != "" {
 		return nil, err
 	}
+
+	f.input_enable = model.CallJsFunWithParameters{
+		FuncNameCall: "enableFileInput",
+		Enable:       true,
+		AddParams:    map[string]any{},
+	}
+
 	f.Logger = h.Logger
 	f.Object.NoAddObjectInDB = true
 
@@ -87,7 +94,7 @@ func NewUploadFileApi(h *model.Handlers, o *model.Object, s filehandler.FileSett
 
 	//nota: al no declarar punteros se pierden posteriormente
 
-	f.Object.FrontHandler.ViewAdapter = f
+	f.Object.FrontHandler.ObjectViewHandler = f
 
 	// agrego el campo input file al objeto para mostrarlo en la vista
 	o.Fields = append(o.Fields, model.Field{

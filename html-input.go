@@ -7,12 +7,18 @@ import (
 func (f FileInput) Input() *model.Input {
 
 	return &model.Input{
-		InputName:        "file",
-		Tag:              f,
-		ItemViewAdapter:  f,
-		ResetViewAdapter: f,
-		Validate:         nil,
-		TestData:         nil,
+		InputName:       "file",
+		Tag:             f,
+		ItemViewAdapter: f,
+		ResetParameters: &model.ResetParameters{
+			CallJsFunWithParameters: model.CallJsFunWithParameters{
+				FuncNameCall: "resetInputFile",
+				Enable:       f.conf.DefaultEnableInput,
+				AddParams:    map[string]any{},
+			},
+		},
+		Validate: nil,
+		TestData: nil,
 	}
 }
 
