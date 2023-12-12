@@ -19,7 +19,7 @@ func NewUploadFileApi(h *model.Handlers, o *model.Object, s filehandler.FileSett
 	f := FileInput{}
 
 	// agregar inputs usados en tabla file al modulo
-	err = o.Module.AddInputs([]*model.Input{f.Input(), FileType(), SavedMode(), input.FilePath(), input.TextOnly(), input.Text()}, "fileinput pkg")
+	err = o.Module.AddInputs([]*model.Input{f.Input(s.DefaultEnableInput), FileType(), SavedMode(), input.FilePath(), input.TextOnly(), input.Text()}, "fileinput pkg")
 	if err != "" {
 		return nil, err
 	}
@@ -101,7 +101,7 @@ func NewUploadFileApi(h *model.Handlers, o *model.Object, s filehandler.FileSett
 		Name:                  "files",
 		Legend:                f.conf.Legend,
 		SourceTable:           o.Table,
-		Input:                 f.Input(),
+		Input:                 f.Input(s.DefaultEnableInput),
 		SkipCompletionAllowed: true,
 		NotRequiredInDB:       true,
 	})

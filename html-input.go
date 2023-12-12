@@ -4,7 +4,7 @@ import (
 	"github.com/cdvelop/model"
 )
 
-func (f FileInput) Input() *model.Input {
+func (f FileInput) Input(default_enable bool) *model.Input {
 
 	return &model.Input{
 		InputName:       "file",
@@ -13,7 +13,7 @@ func (f FileInput) Input() *model.Input {
 		ResetParameters: &model.ResetParameters{
 			CallJsFunWithParameters: model.CallJsFunWithParameters{
 				FuncNameCall: "resetInputFile",
-				Enable:       f.conf.DefaultEnableInput,
+				Enable:       default_enable,
 				AddParams:    map[string]any{},
 			},
 		},
