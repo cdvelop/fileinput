@@ -4,21 +4,14 @@ import (
 	"github.com/cdvelop/model"
 )
 
-func (f FileInput) Input(default_enable bool) *model.Input {
+func (f FileInput) Input() *model.Input {
 
 	return &model.Input{
 		InputName:       "file",
 		Tag:             f,
 		ItemViewAdapter: f,
-		ResetParameters: &model.ResetParameters{
-			CallJsFunWithParameters: model.CallJsFunWithParameters{
-				FuncNameCall: "resetInputFile",
-				Enable:       default_enable,
-				AddParams:    map[string]any{},
-			},
-		},
-		Validate: nil,
-		TestData: nil,
+		Validate:        nil,
+		TestData:        nil,
 	}
 }
 

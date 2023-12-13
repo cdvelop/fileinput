@@ -19,7 +19,7 @@ func NewUploadFileApi(h *model.Handlers, o *model.Object, s filehandler.FileSett
 	f := FileInput{}
 
 	// agregar inputs usados en tabla file al modulo
-	err = o.Module.AddInputs([]*model.Input{f.Input(s.DefaultEnableInput), FileType(), SavedMode(), input.FilePath(), input.TextOnly(), input.Text()}, "fileinput pkg")
+	err = o.Module.AddInputs([]*model.Input{f.Input(), FileType(), SavedMode(), input.FilePath(), input.TextOnly(), input.Text()}, "fileinput pkg")
 	if err != "" {
 		return nil, err
 	}
@@ -33,6 +33,12 @@ func NewUploadFileApi(h *model.Handlers, o *model.Object, s filehandler.FileSett
 	f.input_enable = model.CallJsFunWithParameters{
 		FuncNameCall: "enableFileInput",
 		Enable:       true,
+		AddParams:    map[string]any{},
+	}
+
+	f.input_reset = model.CallJsFunWithParameters{
+		FuncNameCall: "resetInputFile",
+		Enable:       s.DefaultEnableInput,
 		AddParams:    map[string]any{},
 	}
 
@@ -94,14 +100,14 @@ func NewUploadFileApi(h *model.Handlers, o *model.Object, s filehandler.FileSett
 
 	//nota: al no declarar punteros se pierden posteriormente
 
-	f.Object.FrontHandler.ObjectViewHandler = f
+	f.Object.FrontHandler.ResetFrontendObjectStateAdapter = &f
 
 	// agrego el campo input file al objeto para mostrarlo en la vista
 	o.Fields = append(o.Fields, model.Field{
 		Name:                  "files",
 		Legend:                f.conf.Legend,
 		SourceTable:           o.Table,
-		Input:                 f.Input(s.DefaultEnableInput),
+		Input:                 f.Input(),
 		SkipCompletionAllowed: true,
 		NotRequiredInDB:       true,
 	})

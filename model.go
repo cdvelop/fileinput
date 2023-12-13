@@ -20,4 +20,6 @@ type FileInput struct {
 	theme model.ThemeAdapter
 
 	input_enable model.CallJsFunWithParameters
+
+	input_reset model.CallJsFunWithParameters
 }

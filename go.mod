@@ -9,10 +9,10 @@ require (
 )
 
 require (
-	github.com/cdvelop/filehandler v0.0.18
-	github.com/cdvelop/input v0.0.63
+	github.com/cdvelop/filehandler v0.0.19
+	github.com/cdvelop/input v0.0.64
 	github.com/cdvelop/model v0.0.86
-	github.com/cdvelop/object v0.0.46
+	github.com/cdvelop/object v0.0.47
 	github.com/cdvelop/strings v0.0.9
 )
 
