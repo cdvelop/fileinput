@@ -1,9 +1,12 @@
 package fileinput
 
 func (f FileInput) InputEnable() (err string) {
-	return f.input_enable.ExecuteJsFun(f.Object)
+	_, err = f.input_enable.CallWithEnableAndQueryParams(f.Object)
+
+	return
 }
 
 func (f FileInput) ResetFrontendObjectState() (err string) {
-	return f.input_reset.ExecuteJsFun(f.Object)
+	_, err = f.input_reset.CallWithEnableAndQueryParams(f.Object)
+	return
 }

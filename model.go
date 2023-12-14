@@ -19,7 +19,7 @@ type FileInput struct {
 	dom   model.DomAdapter
 	theme model.ThemeAdapter
 
-	input_enable model.CallJsFunWithParameters
+	input_enable model.CallJsOptions
 
-	input_reset model.CallJsFunWithParameters
+	input_reset model.CallJsOptions
 }

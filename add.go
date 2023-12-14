@@ -30,16 +30,16 @@ func NewUploadFileApi(h *model.Handlers, o *model.Object, s filehandler.FileSett
 		return nil, err
 	}
 
-	f.input_enable = model.CallJsFunWithParameters{
-		FuncNameCall: "enableFileInput",
-		Enable:       true,
-		AddParams:    map[string]any{},
+	f.input_enable = model.CallJsOptions{
+		NameJsFunc: "enableFileInput",
+		Enable:     true,
+		Params:     map[string]any{},
 	}
 
-	f.input_reset = model.CallJsFunWithParameters{
-		FuncNameCall: "resetInputFile",
-		Enable:       s.DefaultEnableInput,
-		AddParams:    map[string]any{},
+	f.input_reset = model.CallJsOptions{
+		NameJsFunc: "resetInputFile",
+		Enable:     s.DefaultEnableInput,
+		Params:     map[string]any{},
 	}
 
 	f.Logger = h.Logger
