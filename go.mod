@@ -11,7 +11,7 @@ require (
 require (
 	github.com/cdvelop/filehandler v0.0.24
 	github.com/cdvelop/input v0.0.73
-	github.com/cdvelop/model v0.0.101
+	github.com/cdvelop/model v0.0.102
 	github.com/cdvelop/object v0.0.57
 	github.com/cdvelop/strings v0.0.9
 )
