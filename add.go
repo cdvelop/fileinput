@@ -14,7 +14,7 @@ import (
 // MaximumFilesAllowed:1, 4, 6.. default 6
 // max_kb_size:100, 400 default 50
 
-func NewUploadFileApi(h *model.Handlers, o *model.Object, s filehandler.FileSetting) (F *FileInput, err string) {
+func NewUploadFileApi(h *model.MainHandler, o *model.Object, s filehandler.FileSetting) (F *FileInput, err string) {
 
 	f := FileInput{}
 

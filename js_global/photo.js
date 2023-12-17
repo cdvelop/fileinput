@@ -1,6 +1,6 @@
 function takePicture(e) {
+  console.log("tomando foto:")
   if (!camera.IsClosed()) {
-    // console.log("tomando foto:")
     // console.log("object:", camera.ObjectName)
 
     const context = camera.Canvas.getContext("2d");

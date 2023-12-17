@@ -19,6 +19,7 @@ function resetInputFile(o) {
 }
 
 function enableFileInput(o) {
+
     // console.log("enableFileInput",o)
    
     const cont_files = document.querySelector(o.query)

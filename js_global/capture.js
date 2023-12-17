@@ -7,7 +7,11 @@ function openCapture(t) {
         const container = span.parentNode;
         const form = container.parentNode;        
         
+        console.log("openCapture form:",form)
+
         const current_id = getObjectIdFromForm(form)
+
+        console.log("openCapture current_id:",current_id)
         
         if (camera === undefined) {
             camera = Camera(form);
