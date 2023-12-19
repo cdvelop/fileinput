@@ -12,7 +12,7 @@ require (
 require (
 	github.com/cdvelop/filehandler v0.0.32
 	github.com/cdvelop/input v0.0.77
-	github.com/cdvelop/model v0.0.105
+	github.com/cdvelop/model v0.0.106
 	github.com/cdvelop/object v0.0.65
 	github.com/cdvelop/strings v0.0.9
 )
