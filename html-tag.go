@@ -1,7 +1,5 @@
 package fileinput
 
-import "github.com/cdvelop/strings"
-
 func (f FileInput) BuildContainerView(id, field_name string, allow_skip_completed bool) string {
 
 	var disabled string
@@ -39,9 +37,8 @@ func (f FileInput) BuildContainerView(id, field_name string, allow_skip_complete
 	// tags += `<div name="file_img"><img src="file?id=2"></div>`
 	// tags += `<div name="file_img"><img src="file?id=3"></div>`
 
-	extensions := strings.Join(f.conf.AllowedExtensions, ",")
-
-	tags += `<input type="file" accept=".` + extensions + `">`
+	// extensions := strings.Join(f.conf.AllowedExtensions, ",")
+	// tags += `<input type="file" accept=".` + extensions + `">`
 
 	tags += `</div>`
 

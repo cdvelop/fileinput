@@ -16,10 +16,19 @@ import (
 
 func NewUploadFileApi(h *model.MainHandler, o *model.Object, s filehandler.FileSetting) (F *FileInput, err string) {
 
+	reset_params := &model.ResetParameters{
+		CallJsOptions: model.CallJsOptions{
+			NameJsFunc:         "resetInputFile",
+			Enable:             s.DefaultEnableInput,
+			NotSendQueryObject: true,
+			Params:             map[string]any{},
+		},
+	}
+
 	f := FileInput{}
 
 	// agregar inputs usados en tabla file al modulo
-	err = o.Module.AddInputs([]*model.Input{f.Input(), FileType(), SavedMode(), input.FilePath(), input.TextOnly(), input.Text()}, "fileinput pkg")
+	err = o.Module.AddInputs([]*model.Input{f.Input(reset_params), FileType(), SavedMode(), input.FilePath(), input.TextOnly(), input.Text()}, "fileinput pkg")
 	if err != "" {
 		return nil, err
 	}
@@ -36,11 +45,7 @@ func NewUploadFileApi(h *model.MainHandler, o *model.Object, s filehandler.FileS
 		Params:     map[string]any{},
 	}
 
-	f.input_reset = model.CallJsOptions{
-		NameJsFunc: "resetInputFile",
-		Enable:     s.DefaultEnableInput,
-		Params:     map[string]any{},
-	}
+	f.input_reset = reset_params.CallJsOptions
 
 	f.Logger = h.Logger
 	f.Object.NoAddObjectInDB = true
@@ -107,7 +112,7 @@ func NewUploadFileApi(h *model.MainHandler, o *model.Object, s filehandler.FileS
 		Name:                  "files",
 		Legend:                f.conf.Legend,
 		SourceTable:           o.Table,
-		Input:                 f.Input(),
+		Input:                 f.Input(reset_params),
 		SkipCompletionAllowed: true,
 		NotRequiredInDB:       true,
 	})

@@ -4,13 +4,14 @@ import (
 	"github.com/cdvelop/model"
 )
 
-func (f FileInput) Input() *model.Input {
+func (f FileInput) Input(rp *model.ResetParameters) *model.Input {
 
 	return &model.Input{
 		InputName:       "file",
 		Tag:             f,
 		ItemViewAdapter: f,
 		Validate:        nil,
+		ResetParameters: rp,
 		TestData:        nil,
 	}
 }
