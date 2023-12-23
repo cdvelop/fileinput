@@ -7,11 +7,11 @@ func (f FileInput) BuildContainerView(id, field_name string, allow_skip_complete
 		disabled = ` disabled`
 	}
 
-	tags := `<div class="container-files">`
-	tags += `<span class="modal-capture">
+	tags := `<div class="container-files" data-width="` + f.conf.ImagenWidth + `" data-height="` + f.conf.ImagenHeight + `">`
+	tags += `<span class="modal-file-viewer">
 	<button id="` + id + `" type="button" name="capture" onclick="openCapture(this)"` + disabled + `><svg aria-hidden="true" focusable="false" class="form-btn"><use xlink:href="#icon-camera"/></svg></button>`
 
-	tags += `<div class="video-container video-hidden"><video data-width="` + f.conf.ImagenWidth + `" data-height="` + f.conf.ImagenHeight + `" title="toca el video para tomar una captura" onclick="takePicture(this)" id="video_capture">Video stream no disponible en este dispositivo.</video></div>`
+	tags += `<div class="media-container media-hidden"></div>`
 
 	// tags += `<div class="output"><img id="photo_capture" alt="The screen capture in this box."/></div>`
 

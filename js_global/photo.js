@@ -11,7 +11,7 @@ function takePicture(e) {
 
       // const url = URL.createObjectURL(blob);
 
-      saveBlobFile(camera.ObjectName, camera.ObjectID, blob);
+      saveBlobFile(camera.ObjectName, blob);
 
       camera.ShowNewPicture();
 

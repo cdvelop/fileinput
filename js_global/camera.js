@@ -1,16 +1,17 @@
 
 
-function Camera(form) {
+function Camera(container_files) {
     let camera_is_closed = true;
-    const container_files = form.querySelector('.container-files')
+
+    const form = container_files.parentNode;
+
+    let video = createVideoTag(container_files);
+    
     const canvas = container_files.querySelector('canvas[name="canvas"')
-    const span = container_files.querySelector('span.modal-capture')
+    // photo default config
+    canvas.width = parseInt(video.dataset.width);
+    canvas.height = parseInt(video.dataset.height);
 
-    const object_name = container_files.querySelector('[name="files"]').dataset.id;
-
-    const video_cont = form.querySelector('.video-container')
-
-    let video = form.querySelector('#video_capture');
 
     const button = form.querySelector('button[name="capture"]')
 
@@ -27,35 +28,43 @@ function Camera(form) {
         video.setAttribute("height", height);
     }
 
-    function enableCameraCapture() {
-        shiftContainer(form, container_files, span, "on")
+    function enableCameraCapture(viewer_status) {
+        let stay_viewer_open = false;
+
+        console.log("enableCameraCapture viewer_status", viewer_status)
+        if (viewer_status === "on") {
+            stay_viewer_open = true
+        }
+        
+        MediaViewer(container_files, video, stay_viewer_open)
         camera_is_closed = false;
         navigator.mediaDevices
-            .getUserMedia({ video: true, audio: false })
-            .then((stream) => {
-                video.srcObject = stream;
-                video.play();
-            })
-            .catch((err) => {
-                console.error("An error occurred:", err);
-            });
-
+        .getUserMedia({ video: true, audio: false })
+        .then((stream) => {
+            video.srcObject = stream;
+            video.play();
+        })
+        .catch((err) => {
+            console.error("An error occurred:", err);
+        });
+        
         video.addEventListener("canplay", canplayListener, false);
-        // video.style.display = "block";
-        // video.classList.remove("video-hidden");
-        video_cont.classList.remove("video-hidden");
+        
+        
+        
         button.classList.add('icon-selected');
     }
-
+    
     function disableCameraCapture() {
+        // console.log("disableCameraCapture viewer_status", viewer_status)
         if (!camera_is_closed) {
-            shiftContainer(form, container_files, span, "off")
+            MediaViewer(container_files, video, false)
             video.srcObject.getTracks().forEach((track) => track.stop());
             camera_is_closed = true;
             video.removeEventListener("canplay", canplayListener, false);
-            // video.style.display = "none"; // Ocultar el elemento de video
+
             // Para ocultar el elemento de video suavemente
-            video_cont.classList.add("video-hidden");
+
             button.classList.remove('icon-selected');
         }
     }
@@ -73,21 +82,31 @@ function Camera(form) {
         moveScrollFileImg(previous_img)
     }
 
-    // photo default config
-    canvas.width = parseInt(video.dataset.width);
-    canvas.height = parseInt(video.dataset.height);
-
-    const object_id = getObjectIdFromForm(form)
+    const object_name = getObjectNameFromFileContainer(container_files)
 
     return {
         Enable: enableCameraCapture,
         Disable: disableCameraCapture,
-        ObjectName:object_name,
-        ObjectID: object_id,
+        ObjectName: object_name,
         FormName: formName,
         IsClosed: isCameraClosed,
         Canvas: canvas,
-        Video:video,
-        ShowNewPicture:showNewPicture
+        Video: video,
+        ShowNewPicture: showNewPicture
     };
+}
+
+
+function createVideoTag(container_files) {
+    // Crea un nuevo elemento video
+    var video = document.createElement('video');
+
+    // Establece los atributos del video con la configuración proporcionada
+    video.setAttribute('data-width', container_files.dataset.width);
+    video.setAttribute('data-height', container_files.dataset.height);
+    video.setAttribute('title', 'toca el video para tomar una captura');
+    video.setAttribute('onclick', 'takePicture(this)');
+    video.setAttribute('id', 'video_capture');
+
+    return video
 }

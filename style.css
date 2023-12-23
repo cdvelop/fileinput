@@ -122,7 +122,7 @@ fieldset.file legend{
 
 button[name="capture"] {
     /* position: relative; */
-    /* span.modal-capture .basic-legend { */
+    /* span.modal-file-viewer .basic-legend { */
 
     height: 30px;
     width: 40px;
@@ -134,13 +134,13 @@ button[name="capture"] {
     border-radius: .4em;
 }
 
-span.modal-capture .icon-selected {
+span.modal-file-viewer .icon-selected {
     background-color: var(--col-select);
 }
 
 
 
-.modal-capture {
+.modal-file-viewer {
     border-radius: .4em;
     /* top: -300px; */
     /* bottom: -300px; */
@@ -164,7 +164,7 @@ span.modal-capture .icon-selected {
     height: calc(var(--module-contend-height) - var(--crud-buttons-container-height) - var(--title-height) - .5vh);
 }
 
-.video-container {
+.media-container{
     /* padding: 20px 0 0 0; */
     position: absolute;
     display: inline-block;
@@ -197,7 +197,7 @@ video{
 }
 
 
-.video-hidden {
+.media-hidden {
     /* opacity: 0;
     visibility: hidden;
     transition: opacity 0.5s; /* Duración de la transición */
