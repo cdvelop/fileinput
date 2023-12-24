@@ -9,14 +9,14 @@ function openCapture(t) {
         
         const object_name = getObjectNameFromFileContainer(file_container)
 
-        console.log("openCapture object_name:",object_name)
+        // console.log("openCapture object_name:",object_name)
         
         if (camera === undefined || camera.ObjectName != object_name) {
             camera = Camera(file_container);
             // console.log("NUEVA CÁMARA o IDS DIFERENTES")
         } 
         
-        console.log("openCapture file_container:",file_container)
+        // console.log("openCapture file_container:",file_container)
 
 
         if (camera.IsClosed()) {

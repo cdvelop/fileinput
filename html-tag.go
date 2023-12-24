@@ -53,7 +53,7 @@ func (f FileInput) BuildContainerView(id, field_name string, allow_skip_complete
 	return tags
 }
 
-func (f FileInput) BuildItemsView(all_data ...map[string]string) (html string) {
+func (f *FileInput) BuildItemsView(all_data ...map[string]string) (html string) {
 
 	for _, data := range all_data {
 

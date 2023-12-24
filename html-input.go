@@ -4,7 +4,7 @@ import (
 	"github.com/cdvelop/model"
 )
 
-func (f FileInput) Input(rp *model.ResetParameters) *model.Input {
+func (f *FileInput) Input(rp *model.ResetParameters) *model.Input {
 
 	return &model.Input{
 		InputName:       "file",

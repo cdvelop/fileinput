@@ -25,7 +25,7 @@ func NewUploadFileApi(h *model.MainHandler, o *model.Object, s filehandler.FileS
 		},
 	}
 
-	f := FileInput{}
+	f := &FileInput{}
 
 	// agregar inputs usados en tabla file al modulo
 	err = o.Module.AddInputs([]*model.Input{f.Input(reset_params), FileType(), SavedMode(), input.FilePath(), input.TextOnly(), input.Text()}, "fileinput pkg")
@@ -34,7 +34,7 @@ func NewUploadFileApi(h *model.MainHandler, o *model.Object, s filehandler.FileS
 	}
 
 	// crear objeto file upload
-	err = object.AddToHandlerFromStructs(&f, o.Module, h)
+	err = object.AddToHandlerFromStructs(f, o.Module, h)
 	if err != "" {
 		return nil, err
 	}
@@ -105,7 +105,7 @@ func NewUploadFileApi(h *model.MainHandler, o *model.Object, s filehandler.FileS
 
 	//nota: al no declarar punteros se pierden posteriormente
 
-	f.Object.FrontHandler.ResetFrontendObjectStateAdapter = &f
+	f.Object.FrontHandler.ResetFrontendObjectStateAdapter = f
 
 	// agrego el campo input file al objeto para mostrarlo en la vista
 	o.Fields = append(o.Fields, model.Field{
@@ -127,7 +127,7 @@ func NewUploadFileApi(h *model.MainHandler, o *model.Object, s filehandler.FileS
 	f.Object.AlternativeValidateAdapter = handler
 	// f.Object.
 
-	return &f, ""
+	return f, ""
 
 }
 
