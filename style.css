@@ -43,7 +43,8 @@ div[name="file_img"] {
     margin: 2px 5px 0px 2px;
     transition: 0.3s all ease;
 
-    overflow: hidden; /* Oculta el contenido que se desborda */
+    overflow: hidden;
+    /* Oculta el contenido que se desborda */
 }
 
 div[name="file_img"] img {
@@ -57,11 +58,28 @@ div[name="file_img"] img {
     width: 100%;
 }
 
-div[name="file_img"]:hover {
-    /* cursor: pointer; */
-    /* filter: sepia(100%); */
-    /* transform: scale(.97); */
+
+div[name="file_img"]::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    /* Establecer la opacidad inicial a 0 */
+    transition: opacity 0.3s ease;
+    /* Agregar una transición suave */
+}
+
+div[name="file_img"]:hover::before {
     background-color: var(--col-hover);
+    opacity: 0.5;
+}
+
+div[name="file_img"].file-selected::before {
+    background-color: var(--col-select);
+    opacity: 0.7;
 }
 
 /* Anula la regla :hover para la imagen dentro del modal */
@@ -116,7 +134,7 @@ fieldset.file {
     width: calc(var(--field-width) - 1vw);
 }
 
-fieldset.file legend{
+fieldset.file legend {
     margin-left: 1.5em;
 }
 
@@ -164,7 +182,7 @@ span.modal-file-viewer .icon-selected {
     height: calc(var(--module-contend-height) - var(--crud-buttons-container-height) - var(--title-height) - .5vh);
 }
 
-.media-container{
+.media-container {
     /* padding: 20px 0 0 0; */
     position: absolute;
     display: inline-block;
@@ -187,9 +205,9 @@ span.modal-file-viewer .icon-selected {
     width: 340px;
     /* display: inline-block; */
     /* vertical-align: bottom; */
-  }
+}
 
-video{
+video {
     /* height: auto; */
     /* width: auto; */
     /* height: auto; */
@@ -201,7 +219,7 @@ video{
     /* opacity: 0;
     visibility: hidden;
     transition: opacity 0.5s; /* Duración de la transición */
-    display: none; 
+    display: none;
 
     max-height: 0;
     opacity: 0;
