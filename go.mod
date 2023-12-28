@@ -7,11 +7,11 @@ require (
 	github.com/cdvelop/strings v0.0.9 // indirect
 	github.com/cdvelop/structs v0.0.1 // indirect
 	github.com/cdvelop/timetools v0.0.34 // indirect
-	github.com/cdvelop/unixid v0.0.48 // indirect
+	github.com/cdvelop/unixid v0.0.49 // indirect
 )
 
 require (
-	github.com/cdvelop/filehandler v0.0.36
+	github.com/cdvelop/filehandler v0.0.37
 	github.com/cdvelop/input v0.0.82
 	github.com/cdvelop/model v0.0.107
 	github.com/cdvelop/object v0.0.68
