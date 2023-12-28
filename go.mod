@@ -6,12 +6,12 @@ require (
 	github.com/cdvelop/maps v0.0.8 // indirect
 	github.com/cdvelop/strings v0.0.9 // indirect
 	github.com/cdvelop/structs v0.0.1 // indirect
-	github.com/cdvelop/timetools v0.0.32 // indirect
+	github.com/cdvelop/timetools v0.0.33 // indirect
 	github.com/cdvelop/unixid v0.0.48 // indirect
 )
 
 require (
-	github.com/cdvelop/filehandler v0.0.34
+	github.com/cdvelop/filehandler v0.0.35
 	github.com/cdvelop/input v0.0.81
 	github.com/cdvelop/model v0.0.107
 	github.com/cdvelop/object v0.0.67
