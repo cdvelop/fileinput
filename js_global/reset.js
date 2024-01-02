@@ -6,6 +6,7 @@ function resetInputFile(o) {
             camera.Disable();
         }
     }
+     
     // 2 limpiando input
     const cont_files = o.form.querySelector('[name="' + o.field_name + '"]')
     // const cont_files = document.querySelector(o.query)
@@ -13,6 +14,8 @@ function resetInputFile(o) {
     cont_files.innerHTML = "";
     //  o["cont_files"]=cont_files;
     fileInputEnabled(cont_files, o.enable)
+
+    resetFileInputVars()
 }
 
 function enableFileInput(o) {

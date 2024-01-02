@@ -68,7 +68,7 @@ func NewUploadFileApi(h *model.MainHandler, o *model.Object, s filehandler.FileS
 		FieldNameWithObjectID: o.PrimaryKeyName(),
 		ModuleName:            o.ModuleName,
 		DescriptiveName:       s.DescriptiveName,
-		Legend:                "Imágenes",
+		Legend:                s.Legend,
 		// source:                o, // asignamos el objeto origen
 	}
 

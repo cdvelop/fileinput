@@ -1,6 +1,4 @@
 
-let last_file_selected;
-let file_container;
 function imgFileSelected(target_img) {
 
     file_container = target_img.parentNode.parentNode.parentNode;

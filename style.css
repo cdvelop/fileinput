@@ -1,58 +1,68 @@
-.container-files {
+
+.file-input-container {
+    margin-top: 5px;
+    /* margin: 0; */
+    /* padding: 0; */
     position: relative;
-    /* background-color: aqua; */
 
-    width: var(--field-width);
-    /* padding: 5px; */
-
+    width: 100%;
 
     display: flex;
-    justify-content: space-between;
-    align-items: center;
     transition: transform 0.3s ease;
 
-    margin: 1vh 0 .5vh 0;
 }
 
 
 .scroll-file_img {
-    margin: 0 auto;
-    /* background-color: coral; */
-    width: calc(var(--field-width) - 4vw);
-    /* height: 7em; */
+    /* width: calc(var(--field-width) - 4vw); */
     /* scroll-snap */
     overflow-y: hidden;
     overflow-x: scroll;
-    white-space: nowrap;
     /* scroll-snap-type: x mandatory; */
 
     z-index: 1;
 
-    /* display: flex; */
-    /* align-items: center; */
+    display: flex;
+    flex-wrap: wrap;
+
+    /* justify-content: space-between; */
+    justify-content: space-around;
+    /* justify-content: space-evenly;  */
+
     scroll-behavior: auto;
+    /* desplazamiento por defecto */
+
+    align-items: flex-start;
 }
 
-.scroll-file_img div[name="file_img"] img {
-    /* scroll-snap-align: start; */
-}
 
 div[name="file_img"] {
-    position: relative;
-    display: inline-block;
-    margin: 2px 5px 0px 2px;
-    transition: 0.3s all ease;
-
-    overflow: hidden;
-    /* Oculta el contenido que se desborda */
+    max-width: 100%;  /* Establece el tamaño máximo en relación con el contenedor */
+    width: 9em;       /* Establece un tamaño inicial */
 }
+
+div[name="file_doc"] {
+    width: 100%;
+    /* Por defecto es 0, en 1 lo coloca al final */
+    order: 1; 
+}
+
 
 div[name="file_img"] img {
-    width: 9em;
-    height: 6em;
-    /* height: 100%; */
+    /* La imagen no superará el ancho del contenedor */
+    max-width: 100%;
+    /* La altura se ajustará automáticamente para mantener la proporción */
+    height: auto;
+    /* Mantiene la proporción y cubre completamente el contenedor */
     object-fit: cover;
 }
+
+
+div[name="file_doc"] iframe {
+    width: 100%;
+    height: 620px;
+}
+
 
 .full-screen-img {
     width: 100%;
@@ -61,11 +71,11 @@ div[name="file_img"] img {
 
 div[name="file_img"]::before {
     content: "";
-    position: absolute;
+    position: relative;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 9em;
+    height: 6em;
     opacity: 0;
     /* Establecer la opacidad inicial a 0 */
     transition: opacity 0.3s ease;
@@ -118,20 +128,10 @@ button[name="next_img"] {
 
 
 fieldset.file {
-    border-radius: .4em;
-    /* padding: 2em 0.2em 0.2em 0.2em; */
-    padding: 0;
+    
+    min-width: 100%;
+    
     z-index: 1;
-    height: 8em;
-    /* height: 170px; */
-    /* height: 100%; */
-
-    /* background-color: aquamarine; */
-    background: var(--col-pri);
-    /* position: relative; */
-    /* margin: .5vh 6vw .5vh 1vw; */
-    margin-left: .5vw;
-    width: calc(var(--field-width) - 1vw);
 }
 
 fieldset.file legend {
@@ -139,7 +139,7 @@ fieldset.file legend {
 }
 
 button[name="capture"] {
-    /* position: relative; */
+    position: relative;
     /* span.modal-file-viewer .basic-legend { */
 
     height: 30px;
@@ -157,30 +157,27 @@ span.modal-file-viewer .icon-selected {
 }
 
 
-
 .modal-file-viewer {
     border-radius: .4em;
-    /* top: -300px; */
-    /* bottom: -300px; */
     position: absolute;
     bottom: 0;
 
-    height: calc(var(--field-height) + 1.5vh);
+    /* height: calc(var(--field-height) + 1.5vh); */
+    /* min-height: 100%; */
+    /* height:min-contt; */
+    height:100%;
     width: 100%;
     /* width: var(--field-width); */
     background-color: var(--col-ter);
     /* z-index: 0; */
 
 
-    transition: 0.4s all ease;
-
     display: flex;
     justify-content: center;
+
+    transition: 0.4s all ease;
 }
 
-.expand {
-    height: calc(var(--module-contend-height) - var(--crud-buttons-container-height) - var(--title-height) - .5vh);
-}
 
 .media-container {
     /* padding: 20px 0 0 0; */
@@ -198,14 +195,7 @@ span.modal-file-viewer .icon-selected {
     transition: max-height 0.5s ease, opacity 0.5s ease;
 }
 
-.output {
-    margin-top: 250px;
-    /* margin-bottom: 0; */
-    position: absolute;
-    width: 340px;
-    /* display: inline-block; */
-    /* vertical-align: bottom; */
-}
+
 
 video {
     /* height: auto; */

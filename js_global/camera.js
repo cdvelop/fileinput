@@ -1,5 +1,4 @@
 
-
 function Camera(container_files) {
     let camera_is_closed = true;
 
@@ -28,15 +27,16 @@ function Camera(container_files) {
         video.setAttribute("height", height);
     }
 
-    function enableCameraCapture(viewer_status) {
+    function enableCameraCapture(file_container) {
+        container_files = file_container;
         let stay_viewer_open = false;
 
-        console.log("enableCameraCapture viewer_status", viewer_status)
-        if (viewer_status === "on") {
+        // console.log("enableCameraCapture viewer_status", file_container.dataset.display_status)
+        if (file_container.dataset.display_status === "on") {
             stay_viewer_open = true
         }
         
-        MediaViewer(container_files, video, stay_viewer_open)
+        MediaViewer(file_container, video, stay_viewer_open)
         camera_is_closed = false;
         navigator.mediaDevices
         .getUserMedia({ video: true, audio: false })
@@ -49,8 +49,6 @@ function Camera(container_files) {
         });
         
         video.addEventListener("canplay", canplayListener, false);
-        
-        
         
         button.classList.add('icon-selected');
     }

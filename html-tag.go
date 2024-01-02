@@ -7,7 +7,7 @@ func (f FileInput) BuildContainerView(id, field_name string, allow_skip_complete
 		disabled = ` disabled`
 	}
 
-	tags := `<div class="container-files" data-width="` + f.conf.ImagenWidth + `" data-height="` + f.conf.ImagenHeight + `">`
+	tags := `<div class="file-input-container" data-width="` + f.conf.ImagenWidth + `" data-height="` + f.conf.ImagenHeight + `">`
 	tags += `<span class="modal-file-viewer">
 	<button id="` + id + `" type="button" name="capture" onclick="openCapture(this)"` + disabled + `><svg aria-hidden="true" focusable="false" class="form-btn"><use xlink:href="#icon-camera"/></svg></button>`
 
@@ -26,7 +26,7 @@ func (f FileInput) BuildContainerView(id, field_name string, allow_skip_complete
 	tags += `<fieldset tabindex="` + tabindex + `" class="file border"` + disabled + `>
 	<legend class="basic-legend"><label for="` + id + `">` + f.conf.Legend + `</label></legend>`
 
-	tags += `<button type="button" name="previous_img" onclick="moveScrollFileImg(this)"><i class="arrow left"></i></button>`
+	// tags += `<button type="button" name="previous_img" onclick="moveScrollFileImg(this)"><i class="arrow left"></i></button>`
 	tags += `<div data-id="` + f.Object.ObjectName + `" name="` + field_name + `" class="scroll-file_img" onmousedown="targetFileHandler(event)" ontouchstart="targetFileHandler(event)">`
 
 	// tags += `<div data-id="` + f.Object.Name + `" name="` + field_name + `" class="scroll-file_img" onclick="imgFileSelected(event)">`
@@ -42,7 +42,7 @@ func (f FileInput) BuildContainerView(id, field_name string, allow_skip_complete
 
 	tags += `</div>`
 
-	tags += `<button type="button" name="next_img" onclick="moveScrollFileImg(this)"><i class="arrow right"></i></button>`
+	// tags += `<button type="button" name="next_img" onclick="moveScrollFileImg(this)"><i class="arrow right"></i></button>`
 
 	tags += `</fieldset>`
 
@@ -55,6 +55,8 @@ func (f FileInput) BuildContainerView(id, field_name string, allow_skip_complete
 
 func (f *FileInput) BuildItemsView(all_data ...map[string]string) (html string) {
 
+	// f.Log("BuildItemsView:", all_data)
+
 	for _, data := range all_data {
 
 		if id, ok := data["id_file"]; ok {
@@ -65,10 +67,23 @@ func (f *FileInput) BuildItemsView(all_data ...map[string]string) (html string) 
 				src = url
 			}
 
-			html += `<div name="file_img" data-id="` + id + `">
-			<div class="delete-tab"></div>
-			<img src="` + src + `"></div>`
+			// open
+			if typeImagen(data) {
+				html += `<div name="file_img" data-id="` + id + `">`
+				html += `<div class="delete-tab"></div>`
+				html += `<img src="` + src + `">`
+			} else if typePdf(data) {
+				html += `<div name="file_doc" data-id="` + id + `">`
+				html += `<iframe src="` + src + `"></iframe>`
 
+			} else if typeVideo(data) {
+				html += `<video src="` + src + `"></div>`
+
+			} else {
+
+			}
+
+			html += `</div>` // close
 		}
 	}
 

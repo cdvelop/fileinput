@@ -1,5 +1,5 @@
 
-let camera;
+
 function openCapture(t) {
     
     let span = t.closest('span')
@@ -20,7 +20,7 @@ function openCapture(t) {
 
 
         if (camera.IsClosed()) {
-            camera.Enable(file_container.dataset.display_status);
+            camera.Enable(file_container);
         } else {
             camera.Disable();
         }

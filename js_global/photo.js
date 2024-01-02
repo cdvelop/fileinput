@@ -1,3 +1,4 @@
+
 function takePicture() {
   console.log("tomando foto:")
   if (!camera.IsClosed()) {
@@ -11,7 +12,7 @@ function takePicture() {
 
       // const url = URL.createObjectURL(blob);
 
-      saveBlobFile(camera.ObjectName, blob);
+      saveBlobFile(camera.ObjectName, blob,".jpg");
 
       camera.ShowNewPicture();
 
