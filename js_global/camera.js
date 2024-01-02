@@ -32,7 +32,7 @@ function Camera(container_files) {
         let stay_viewer_open = false;
 
         // console.log("enableCameraCapture viewer_status", file_container.dataset.display_status)
-        if (file_container.dataset.display_status === "on") {
+        if (modal_displayed) {
             stay_viewer_open = true
         }
         
@@ -53,16 +53,22 @@ function Camera(container_files) {
         button.classList.add('icon-selected');
     }
     
-    function disableCameraCapture() {
+    function disableCameraCapture(viewer_content) {
         // console.log("disableCameraCapture viewer_status", viewer_status)
         if (!camera_is_closed) {
-            MediaViewer(container_files, video, false)
             video.srcObject.getTracks().forEach((track) => track.stop());
             camera_is_closed = true;
             video.removeEventListener("canplay", canplayListener, false);
-
-
             button.classList.remove('icon-selected');
+           
+            // console.log("disableCameraCapture viewer_content",viewer_content)
+
+            let viewer_open = false
+            if (viewer_content != undefined){
+                viewer_open = true
+            }
+
+            MediaViewer(container_files, viewer_content, viewer_open)
         }
     }
 

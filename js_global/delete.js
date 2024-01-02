@@ -2,10 +2,11 @@
 
 function deleteFileHandler(target) {
 
-    file_container = target.parentNode;
+    let obj_container = target.parentNode;
 
-    // console.log('BORRAR ELEMENTO:', target);
-    const obj_name = file_container.dataset.id;
+    // console.log('deleteFileHandler:', obj_container);
+
+    const obj_name = obj_container.dataset.id;
     // console.log('obj_name ', obj_name);
 
     // const img = target.querySelector('img')
@@ -19,11 +20,17 @@ function deleteFileHandler(target) {
 
 function deleteFile(id) {
     // console.log("delete file in dom", id)
+
     if (file_container != undefined) {
         let file = file_container.querySelector('[data-id="' + id + '"]')
         if (file != undefined) {
-            // console.log("delete file ", file)
+
             file.remove();
+
+            // cierro el visor solo si esta desplegado y la cámara esta apagada
+            if (modal_displayed && camera && camera.IsClosed()) {
+                MediaViewer(file_container, "", false)
+            }
         }
     }
 }

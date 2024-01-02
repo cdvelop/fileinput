@@ -1,8 +1,7 @@
 function targetFileHandler(e) {
     e.stopPropagation();
 
-    console.log("targetFileHandler",e.target)
-
+    // console.log("targetFileHandler",e.target)
     // const tagname = e.target.tagName.toLowerCase()
     // console.log("**EVENTO: targetFileHandler",e.target,"tagname:", tagname)
     targetHandler(e.target, imgFileSelected, deleteFileHandler)
@@ -11,27 +10,27 @@ function targetFileHandler(e) {
 
 
 function imgFileSelected(target_img) {
-
-    console.log("imgFileSelected:", target_img);
+    // console.log("imgFileSelected:", target_img);
 
     file_container = target_img.parentNode.parentNode.parentNode;
-
-
 
     // Clona la imagen seleccionada
     const cloned_image = target_img.querySelector('img').cloneNode(true)
     cloned_image.setAttribute('onclick', 'fullScreenImage(this)');
     // console.log("imgFileSelected cloned_image", cloned_image);
 
-    let same = sameImageID(target_img)
-
+    
     // si la cámara esta abierta hay que desactivarla
     if (camera != undefined && !camera.IsClosed()) {
-        camera.Disable();
+        // como esta abierto el visor enviamos la imagen a traves de la cam
+        camera.Disable(cloned_image);
+        
+    }else{
+        
+        let same = sameImageID(target_img)
+        // si la imagen seleccionada es la misma cerramos el visor
+        MediaViewer(file_container, cloned_image, !same)
     }
-
-    // si la imagen seleccionada es la misma cerramos el visor
-    MediaViewer(file_container, cloned_image, !same)
 
 
     target_img.classList.toggle("file-selected");

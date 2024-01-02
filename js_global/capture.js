@@ -4,7 +4,7 @@ function openCapture(t) {
     
     let span = t.closest('span')
     if (span != undefined) {
-        const file_container = span.parentNode;
+       file_container = span.parentNode;
         // const form = file_container.parentNode;        
         
         const object_name = getObjectNameFromFileContainer(file_container)
