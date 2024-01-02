@@ -61,7 +61,6 @@ function Camera(container_files) {
             camera_is_closed = true;
             video.removeEventListener("canplay", canplayListener, false);
 
-            // Para ocultar el elemento de video suavemente
 
             button.classList.remove('icon-selected');
         }
@@ -75,10 +74,6 @@ function Camera(container_files) {
         return camera_is_closed;
     }
 
-    const previous_img = container_files.querySelector('[name="previous_img"]')
-    function showNewPicture() {
-        moveScrollFileImg(previous_img)
-    }
 
     const object_name = getObjectNameFromFileContainer(container_files)
 
@@ -90,7 +85,6 @@ function Camera(container_files) {
         IsClosed: isCameraClosed,
         Canvas: canvas,
         Video: video,
-        ShowNewPicture: showNewPicture
     };
 }
 

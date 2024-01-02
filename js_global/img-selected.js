@@ -1,9 +1,22 @@
+function targetFileHandler(e) {
+    e.stopPropagation();
+
+    console.log("targetFileHandler",e.target)
+
+    // const tagname = e.target.tagName.toLowerCase()
+    // console.log("**EVENTO: targetFileHandler",e.target,"tagname:", tagname)
+    targetHandler(e.target, imgFileSelected, deleteFileHandler)
+}
+
+
 
 function imgFileSelected(target_img) {
 
+    console.log("imgFileSelected:", target_img);
+
     file_container = target_img.parentNode.parentNode.parentNode;
 
-    // console.log("imgFileSelected:", target_img);
+
 
     // Clona la imagen seleccionada
     const cloned_image = target_img.querySelector('img').cloneNode(true)
@@ -65,11 +78,6 @@ function getFileId(img) {
     return img.dataset.id;
 }
 
-function targetFileHandler(e) {
-    e.stopPropagation();
-    // const tagname = e.target.tagName.toLowerCase()
-    // console.log("**EVENTO: targetFileHandler",e.target,"tagname:", tagname)
-    targetHandler(e.target, imgFileSelected, deleteFileHandler)
-}
+
 
 

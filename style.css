@@ -1,4 +1,3 @@
-
 .file-input-container {
     margin-top: 5px;
     /* margin: 0; */
@@ -37,22 +36,21 @@
 
 
 div[name="file_img"] {
-    max-width: 100%;  /* Establece el tamaño máximo en relación con el contenedor */
-    width: 9em;       /* Establece un tamaño inicial */
+    position: relative;
+    /* ancho fijo */
+    width: 9em;
 }
 
 div[name="file_doc"] {
     width: 100%;
     /* Por defecto es 0, en 1 lo coloca al final */
-    order: 1; 
+    order: 1;
 }
 
 
 div[name="file_img"] img {
-    /* La imagen no superará el ancho del contenedor */
-    max-width: 100%;
-    /* La altura se ajustará automáticamente para mantener la proporción */
-    height: auto;
+    width: 100%;
+    height: 100%;
     /* Mantiene la proporción y cubre completamente el contenedor */
     object-fit: cover;
 }
@@ -64,22 +62,17 @@ div[name="file_doc"] iframe {
 }
 
 
-.full-screen-img {
-    width: 100%;
-}
-
-
 div[name="file_img"]::before {
     content: "";
-    position: relative;
+    position: absolute;
     top: 0;
     left: 0;
-    width: 9em;
-    height: 6em;
-    opacity: 0;
+    width: 100%;
+    height: 100%;
     /* Establecer la opacidad inicial a 0 */
-    transition: opacity 0.3s ease;
+    opacity: 0;
     /* Agregar una transición suave */
+    transition: opacity 0.3s ease;
 }
 
 div[name="file_img"]:hover::before {
@@ -87,9 +80,14 @@ div[name="file_img"]:hover::before {
     opacity: 0.5;
 }
 
+
 div[name="file_img"].file-selected::before {
     background-color: var(--col-select);
     opacity: 0.7;
+}
+
+.full-screen-img {
+    width: 100%;
 }
 
 /* Anula la regla :hover para la imagen dentro del modal */
@@ -128,9 +126,9 @@ button[name="next_img"] {
 
 
 fieldset.file {
-    
+
     min-width: 100%;
-    
+
     z-index: 1;
 }
 
@@ -165,7 +163,7 @@ span.modal-file-viewer .icon-selected {
     /* height: calc(var(--field-height) + 1.5vh); */
     /* min-height: 100%; */
     /* height:min-contt; */
-    height:100%;
+    height: 100%;
     width: 100%;
     /* width: var(--field-width); */
     background-color: var(--col-ter);

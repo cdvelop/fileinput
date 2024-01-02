@@ -14,8 +14,6 @@ function takePicture() {
 
       saveBlobFile(camera.ObjectName, blob,".jpg");
 
-      camera.ShowNewPicture();
-
     }, "image/jpeg", 0.9);
   }
 }
