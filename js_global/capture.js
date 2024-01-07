@@ -9,7 +9,7 @@ function openCapture(t) {
         
         const object_name = getObjectNameFromFileContainer(file_container)
 
-        // console.log("openCapture object_name:",object_name)
+        console.log("openCapture object_name:",object_name)
         
         if (camera === undefined || camera.ObjectName != object_name) {
             camera = Camera(file_container);
@@ -23,6 +23,8 @@ function openCapture(t) {
             camera.Enable(file_container);
         } else {
             camera.Disable();
+
+            endFileCapture(object_name)
         }
      
     }
