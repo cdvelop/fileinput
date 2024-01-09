@@ -9,8 +9,7 @@ func (f FileInput) CameraTurn(on bool) {
 
 	err := f.Object.ClickingID(turn)
 	if err != "" {
-		f.Log(err)
+		f.Log("CameraTurn error", err)
 		return
 	}
-
 }

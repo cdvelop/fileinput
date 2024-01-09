@@ -1,6 +1,6 @@
 
 function takePicture() {
-  console.log("tomando foto:")
+  // console.log("tomando foto:")
   if (!camera.IsClosed()) {
     // console.log("object:", camera.ObjectName)
 

@@ -30,7 +30,7 @@ function MediaViewer(file_container, new_content, stay_viewer_open = false) {
 
     if (modal_displayed == false) {// no definido, lo encendemos
         modal_displayed = true
-        shiftInY = form.clientHeight - file_container.offsetTop - 35;
+        shiftInY = form.clientHeight - file_container.offsetTop;
 
         media_cont.classList.remove("media-hidden");
     } else {

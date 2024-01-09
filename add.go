@@ -131,6 +131,6 @@ func NewUploadFileApi(h *model.MainHandler, o *model.Object, s filehandler.FileS
 
 }
 
-func (f FileInput) NameViewAdapter() string {
+func (f FileInput) ViewHandlerName() string {
 	return "FileInput"
 }

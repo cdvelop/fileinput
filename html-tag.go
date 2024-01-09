@@ -9,7 +9,7 @@ func (f FileInput) BuildContainerView(id, field_name string, allow_skip_complete
 
 	tags := `<div class="file-input-container" data-width="` + f.conf.ImagenWidth + `" data-height="` + f.conf.ImagenHeight + `">`
 	tags += `<span class="modal-file-viewer">
-	<button id="` + id + `" type="button" name="capture" onclick="openCapture(this)"` + disabled + `><svg aria-hidden="true" focusable="false" class="form-btn"><use xlink:href="#icon-camera"/></svg></button>`
+	<button id="` + id + `" type="button" name="capture" onclick="openCapture(this)" title="iniciar captura de imagen"` + disabled + `><svg aria-hidden="true" focusable="false" class="form-btn"><use xlink:href="#icon-camera"/></svg></button>`
 
 	tags += `<div class="media-container media-hidden"></div>`
 
