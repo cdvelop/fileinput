@@ -81,8 +81,6 @@ func (f *FileInput) BuildItemsView(all_data ...map[string]string) (html string) 
 			} else if typeVideo(data) {
 				html += `<video src="` + src + `"></div>`
 
-			} else {
-
 			}
 
 			html += `</div>` // close

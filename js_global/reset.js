@@ -30,14 +30,19 @@ function fileInputEnabled(cont_files, enable) {
      const fieldset = cont_files.closest('fieldset')
      
      
-     const button = fieldset.parentNode.querySelector('button[name="capture"]');
+     const btn_capture = fieldset.parentNode.querySelector('button[name="capture"]');
+     const btn_joystick = fieldset.parentNode.querySelector('button[name="joystick"]');
+
+    //  console.log(btn_joystick)
    
     if (enable) {
         fieldset.disabled = false
-        button.disabled = false
+        btn_capture.disabled = false
+        btn_joystick.disabled = false
     } else {
         fieldset.disabled = true
-        button.disabled = true
+        btn_capture.disabled = true
+        btn_joystick.disabled = true
     }
 
 
