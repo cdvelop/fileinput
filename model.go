@@ -23,6 +23,5 @@ type FileInput struct {
 
 	input_reset model.CallJsOptions
 
-	gamepad_icon  model.CallJsOptions
-	gamepad_photo model.CallJsOptions
+	gamepad model.CallJsOptions
 }

@@ -45,13 +45,8 @@ func NewUploadFileApi(h *model.MainHandler, o *model.Object, s filehandler.FileS
 		Params:     map[string]any{},
 	}
 
-	f.gamepad_icon = model.CallJsOptions{
-		NameJsFunc: "gamepadIconON",
-		Params:     map[string]any{},
-	}
-	f.gamepad_photo = model.CallJsOptions{
-		NameJsFunc: "gamepadPhoto",
-		Params:     map[string]any{},
+	f.gamepad = model.CallJsOptions{
+		Params: map[string]any{},
 	}
 
 	f.input_reset = reset_params.CallJsOptions
@@ -137,12 +132,7 @@ func NewUploadFileApi(h *model.MainHandler, o *model.Object, s filehandler.FileS
 	// f.Object.
 
 	if h.DevicePeripherals.GamepadClientAdapter != nil {
-		h.DevicePeripherals.GamepadCallFunRegisterButton(&model.GamepadConfig{
-			Connected:      f.GamePadConnected,
-			Disconnected:   f.GamePadDisconnected,
-			ButtonAny:      f.TakePhotoWithGamePad,
-			ButtonSpecific: map[int]func(){},
-		})
+		h.DevicePeripherals.GamepadRegister(f, f, nil)
 	}
 
 	return f, ""

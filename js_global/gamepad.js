@@ -1,7 +1,4 @@
 
-function gamepadIconON(o) {
-    joystickEnable(o)
-}
 
 function gamepadPhoto(o) {
     const container = joystickEnable(o)
@@ -19,7 +16,14 @@ function gamepadPhoto(o) {
 
 
 function joystickEnable(o) {
-    const container = document.querySelector(o.query).parentNode.parentNode;
+    const object = document.querySelector(o.query);
+    // console.log("objecto:",object)
+
+    if (object === null) {
+        return
+    }
+
+    const container = object.parentNode.parentNode;
 
     const button = container.querySelector('span.modal-file-viewer button[name="joystick"]')
 
