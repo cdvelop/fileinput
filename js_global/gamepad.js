@@ -1,53 +1,36 @@
 
-let previousButtonState = [];
+function gamepadIconON(o) {
+    joystickEnable(o)
+}
 
-window.addEventListener("gamepadconnected", (e) => {
-    console.log("gamepad connected");
-});
+function gamepadPhoto(o) {
+    const container = joystickEnable(o)
+    // console.log("container", container)
+    var captureButton = container.querySelector("button[name='capture']");
+    // console.log("captureButton", captureButton)
+    if (!captureButton.classList.contains("icon-selected")) {
+        // console.log("la cámara esta apagada hay que encenderla")
+        captureButton.click();
+    } else {
+        // console.log(" la cámara esta iniciada lista para sacar foto'");
+        takePicture();
+    }
+}
 
-window.addEventListener("gamepaddisconnected", (e) => {
-    console.log("gamepad disconnected");
-});
 
-function gameLoop() {
-    const gamepads = navigator.getGamepads();
+function joystickEnable(o) {
+    const container = document.querySelector(o.query).parentNode.parentNode;
 
-    for (let i = 0; i < gamepads.length; i++) {
-        const gamepad = gamepads[i];
-        
-        if (gamepad && gamepad.connected) {
-            handleButtons(gamepad.buttons);
-        }
+    const button = container.querySelector('span.modal-file-viewer button[name="joystick"]')
+
+    if (o.enable) {
+        button.classList.add('icon-selected');
+        button.title = "joystick conectado"
+
+    } else {
+        button.classList.remove('icon-selected');
+        button.title = "joystick desconectado"
     }
 
-    requestAnimationFrame(gameLoop);
+    return container
 }
-
-function handleButtons(buttons) {
-    buttons.forEach((button, index) => {
-        if (button.pressed && !previousButtonState[index]) {
-
-            // console.log("previousButtonState:",previousButtonState)
-
-            console.log(`TOMANDO FOTO CON MANDO ${index}`);
-            // Aquí puedes realizar acciones adicionales cuando se presiona un botón
-            // console.log("ESTADO CÁMARA ESTA CERRADA?:", camera_is_closed)
-            // turnOnCamera()
-            takePicture()
-        }
-        previousButtonState[index] = button.pressed;
-    });
-}
-
-gameLoop();
-
-
-
-// function turnOnCamera() {
-//     if (camera_is_closed) {
-//         startupCapture()
-//     } else {
-//         takePicture();
-//     }
-
-// }

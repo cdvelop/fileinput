@@ -1,7 +1,6 @@
 package fileinput
 
 func (f FileInput) InputEnable() (err string) {
-
 	_, err = f.input_enable.CallWithEnableAndQueryParams(f.Object)
 
 	return

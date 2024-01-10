@@ -11,6 +11,8 @@ func (f FileInput) BuildContainerView(id, field_name string, allow_skip_complete
 	tags += `<span class="modal-file-viewer">
 	<button id="` + id + `" type="button" name="capture" onclick="openCapture(this)" title="iniciar captura de imagen"` + disabled + `><svg aria-hidden="true" focusable="false" class="form-btn"><use xlink:href="#icon-camera"/></svg></button>`
 
+	tags += `<button type="button" name="joystick" title="joystick desconectado"` + disabled + `><svg aria-hidden="true" focusable="false" class="form-btn"><use xlink:href="#icon-joystick"/></svg></button>`
+
 	tags += `<div class="media-container media-hidden"></div>`
 
 	// tags += `<div class="output"><img id="photo_capture" alt="The screen capture in this box."/></div>`

@@ -3,9 +3,9 @@ module github.com/cdvelop/fileinput
 go 1.20
 
 require (
-	github.com/cdvelop/filehandler v0.0.41
+	github.com/cdvelop/filehandler v0.0.42
 	github.com/cdvelop/input v0.0.83
-	github.com/cdvelop/model v0.0.115
+	github.com/cdvelop/model v0.0.116
 	github.com/cdvelop/object v0.0.72
 )
 

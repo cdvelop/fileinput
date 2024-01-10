@@ -136,7 +136,7 @@ fieldset.file legend {
     margin-left: 1.5em;
 }
 
-button[name="capture"] {
+button[name="capture"], button[name="joystick"]  {
     position: relative;
     /* span.modal-file-viewer .basic-legend { */
 
@@ -149,6 +149,11 @@ button[name="capture"] {
     background-color: var(--col-sec);
     border-radius: .4em;
 }
+
+button[name="joystick"]{
+    margin-left: 5px;
+}
+
 
 span.modal-file-viewer .icon-selected {
     background-color: var(--col-select);
