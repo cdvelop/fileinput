@@ -10,6 +10,8 @@ type FileInput struct {
 
 	Object *model.Object
 
+	notifyDelete model.NotifyFileDelete
+
 	model.Logger
 
 	// *filehandler.FileHandler

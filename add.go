@@ -39,6 +39,9 @@ func NewUploadFileApi(h *model.MainHandler, o *model.Object, s filehandler.FileS
 		return nil, err
 	}
 
+	// agregamos el manejador de actualización después de eliminación
+	f.notifyDelete = o.FrontHandler.NotifyFileDelete
+
 	f.input_enable = model.CallJsOptions{
 		NameJsFunc: "enableFileInput",
 		Enable:     true,
@@ -130,6 +133,8 @@ func NewUploadFileApi(h *model.MainHandler, o *model.Object, s filehandler.FileS
 	f.Object.BackHandler.UpdateApi = handler
 	f.Object.AlternativeValidateAdapter = handler
 	// f.Object.
+
+	f.Object.FrontHandler.ViewHandlerObject = f
 
 	if h.DevicePeripherals.GamepadClientAdapter != nil {
 		h.DevicePeripherals.GamepadRegister(f, f, nil)
